@@ -1,14 +1,14 @@
 //
-//  MACAppDelegate.m
+//  SSTAppDelegate.m
 //  Pesterchum
 //
-//  Created by Michael Colvin on 9/21/12.
-//  Copyright (c) 2012 Systech Studio. All rights reserved.
+//  Created by Michael Colvin on 9/14/12.
+//  Copyright (c) 2012 Systech Studios. All rights reserved.
 //
 
-#import "MACAppDelegate.h"
+#import "SSTAppDelegate.h"
 
-@implementation MACAppDelegate
+@implementation SSTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
