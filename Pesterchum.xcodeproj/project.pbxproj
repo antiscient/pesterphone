@@ -1,0 +1,287 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F39AAD3B160D2129009170B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3A160D2129009170B2 /* UIKit.framework */; };
+		F39AAD3D160D2129009170B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3C160D2129009170B2 /* Foundation.framework */; };
+		F39AAD3F160D2129009170B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3E160D2129009170B2 /* CoreGraphics.framework */; };
+		F39AAD45160D2129009170B2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F39AAD43160D2129009170B2 /* InfoPlist.strings */; };
+		F39AAD47160D2129009170B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD46160D2129009170B2 /* main.m */; };
+		F39AAD4B160D2129009170B2 /* MACAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD4A160D2129009170B2 /* MACAppDelegate.m */; };
+		F39AAD4E160D2129009170B2 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F39AAD4C160D2129009170B2 /* MainStoryboard.storyboard */; };
+		F39AAD51160D2129009170B2 /* MACViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD50160D2129009170B2 /* MACViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F39AAD36160D2128009170B2 /* Pesterchum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pesterchum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F39AAD3A160D2129009170B2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F39AAD3C160D2129009170B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F39AAD3E160D2129009170B2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F39AAD42160D2129009170B2 /* Pesterchum-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pesterchum-Info.plist"; sourceTree = "<group>"; };
+		F39AAD44160D2129009170B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F39AAD46160D2129009170B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F39AAD48160D2129009170B2 /* Pesterchum-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pesterchum-Prefix.pch"; sourceTree = "<group>"; };
+		F39AAD49160D2129009170B2 /* MACAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MACAppDelegate.h; sourceTree = "<group>"; };
+		F39AAD4A160D2129009170B2 /* MACAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MACAppDelegate.m; sourceTree = "<group>"; };
+		F39AAD4D160D2129009170B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		F39AAD4F160D2129009170B2 /* MACViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MACViewController.h; sourceTree = "<group>"; };
+		F39AAD50160D2129009170B2 /* MACViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MACViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F39AAD33160D2128009170B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F39AAD3B160D2129009170B2 /* UIKit.framework in Frameworks */,
+				F39AAD3D160D2129009170B2 /* Foundation.framework in Frameworks */,
+				F39AAD3F160D2129009170B2 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F39AAD2B160D2128009170B2 = {
+			isa = PBXGroup;
+			children = (
+				F39AAD40160D2129009170B2 /* Pesterchum */,
+				F39AAD39160D2129009170B2 /* Frameworks */,
+				F39AAD37160D2129009170B2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F39AAD37160D2129009170B2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F39AAD36160D2128009170B2 /* Pesterchum.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F39AAD39160D2129009170B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F39AAD3A160D2129009170B2 /* UIKit.framework */,
+				F39AAD3C160D2129009170B2 /* Foundation.framework */,
+				F39AAD3E160D2129009170B2 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F39AAD40160D2129009170B2 /* Pesterchum */ = {
+			isa = PBXGroup;
+			children = (
+				F39AAD49160D2129009170B2 /* MACAppDelegate.h */,
+				F39AAD4A160D2129009170B2 /* MACAppDelegate.m */,
+				F39AAD4C160D2129009170B2 /* MainStoryboard.storyboard */,
+				F39AAD4F160D2129009170B2 /* MACViewController.h */,
+				F39AAD50160D2129009170B2 /* MACViewController.m */,
+				F39AAD41160D2129009170B2 /* Supporting Files */,
+			);
+			path = Pesterchum;
+			sourceTree = "<group>";
+		};
+		F39AAD41160D2129009170B2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F39AAD42160D2129009170B2 /* Pesterchum-Info.plist */,
+				F39AAD43160D2129009170B2 /* InfoPlist.strings */,
+				F39AAD46160D2129009170B2 /* main.m */,
+				F39AAD48160D2129009170B2 /* Pesterchum-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F39AAD35160D2128009170B2 /* Pesterchum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F39AAD54160D2129009170B2 /* Build configuration list for PBXNativeTarget "Pesterchum" */;
+			buildPhases = (
+				F39AAD32160D2128009170B2 /* Sources */,
+				F39AAD33160D2128009170B2 /* Frameworks */,
+				F39AAD34160D2128009170B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pesterchum;
+			productName = Pesterchum;
+			productReference = F39AAD36160D2128009170B2 /* Pesterchum.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F39AAD2D160D2128009170B2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MAC;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Systech Studio";
+			};
+			buildConfigurationList = F39AAD30160D2128009170B2 /* Build configuration list for PBXProject "Pesterchum" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F39AAD2B160D2128009170B2;
+			productRefGroup = F39AAD37160D2129009170B2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F39AAD35160D2128009170B2 /* Pesterchum */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F39AAD34160D2128009170B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F39AAD45160D2129009170B2 /* InfoPlist.strings in Resources */,
+				F39AAD4E160D2129009170B2 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F39AAD32160D2128009170B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F39AAD47160D2129009170B2 /* main.m in Sources */,
+				F39AAD4B160D2129009170B2 /* MACAppDelegate.m in Sources */,
+				F39AAD51160D2129009170B2 /* MACViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F39AAD43160D2129009170B2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F39AAD44160D2129009170B2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F39AAD4C160D2129009170B2 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F39AAD4D160D2129009170B2 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F39AAD52160D2129009170B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F39AAD53160D2129009170B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F39AAD55160D2129009170B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pesterchum/Pesterchum-Prefix.pch";
+				INFOPLIST_FILE = "Pesterchum/Pesterchum-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F39AAD56160D2129009170B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pesterchum/Pesterchum-Prefix.pch";
+				INFOPLIST_FILE = "Pesterchum/Pesterchum-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F39AAD30160D2128009170B2 /* Build configuration list for PBXProject "Pesterchum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F39AAD52160D2129009170B2 /* Debug */,
+				F39AAD53160D2129009170B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F39AAD54160D2129009170B2 /* Build configuration list for PBXNativeTarget "Pesterchum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F39AAD55160D2129009170B2 /* Debug */,
+				F39AAD56160D2129009170B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F39AAD2D160D2128009170B2 /* Project object */;
+}
