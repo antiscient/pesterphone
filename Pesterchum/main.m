@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SSTAppDelegate.h"
+#import "PesterphoneAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([SSTAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([PesterphoneAppDelegate class]));
     }
 }

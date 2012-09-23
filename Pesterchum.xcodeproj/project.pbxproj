@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB5D5D2A160EA54500BCCC6F /* ChumrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D5D29160EA54500BCCC6F /* ChumrollViewController.m */; };
+		EB5D5D33160EA9F300BCCC6F /* PesterlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D5D32160EA9F300BCCC6F /* PesterlistViewController.m */; };
 		F39AAD3B160D2129009170B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3A160D2129009170B2 /* UIKit.framework */; };
 		F39AAD3D160D2129009170B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3C160D2129009170B2 /* Foundation.framework */; };
 		F39AAD3F160D2129009170B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3E160D2129009170B2 /* CoreGraphics.framework */; };
-		F39AAD60160D2165009170B2 /* SSTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD58160D2165009170B2 /* SSTAppDelegate.m */; };
+		F39AAD60160D2165009170B2 /* PesterphoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD58160D2165009170B2 /* PesterphoneAppDelegate.m */; };
 		F39AAD61160D2165009170B2 /* IRCConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD5A160D2165009170B2 /* IRCConnection.m */; };
 		F39AAD62160D2165009170B2 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F39AAD5B160D2165009170B2 /* MainStoryboard.storyboard */; };
 		F39AAD63160D2165009170B2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39AAD5D160D2165009170B2 /* LoginViewController.m */; };
@@ -20,12 +22,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EB5D5D28160EA54500BCCC6F /* ChumrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChumrollViewController.h; sourceTree = SOURCE_ROOT; };
+		EB5D5D29160EA54500BCCC6F /* ChumrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChumrollViewController.m; sourceTree = SOURCE_ROOT; };
+		EB5D5D31160EA9F300BCCC6F /* PesterlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PesterlistViewController.h; sourceTree = SOURCE_ROOT; };
+		EB5D5D32160EA9F300BCCC6F /* PesterlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PesterlistViewController.m; sourceTree = SOURCE_ROOT; };
 		F39AAD36160D2128009170B2 /* Pesterchum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pesterchum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39AAD3A160D2129009170B2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F39AAD3C160D2129009170B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F39AAD3E160D2129009170B2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F39AAD57160D2165009170B2 /* SSTAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSTAppDelegate.h; path = ../SSTAppDelegate.h; sourceTree = "<group>"; };
-		F39AAD58160D2165009170B2 /* SSTAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSTAppDelegate.m; path = ../SSTAppDelegate.m; sourceTree = "<group>"; };
+		F39AAD57160D2165009170B2 /* PesterphoneAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PesterphoneAppDelegate.h; path = ../PesterphoneAppDelegate.h; sourceTree = "<group>"; };
+		F39AAD58160D2165009170B2 /* PesterphoneAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PesterphoneAppDelegate.m; path = ../PesterphoneAppDelegate.m; sourceTree = "<group>"; };
 		F39AAD59160D2165009170B2 /* IRCConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IRCConnection.h; path = ../IRCConnection.h; sourceTree = "<group>"; };
 		F39AAD5A160D2165009170B2 /* IRCConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IRCConnection.m; path = ../IRCConnection.m; sourceTree = "<group>"; };
 		F39AAD5B160D2165009170B2 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard.storyboard; path = ../MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -83,8 +89,8 @@
 		F39AAD40160D2129009170B2 /* Pesterchum */ = {
 			isa = PBXGroup;
 			children = (
-				F39AAD57160D2165009170B2 /* SSTAppDelegate.h */,
-				F39AAD58160D2165009170B2 /* SSTAppDelegate.m */,
+				F39AAD57160D2165009170B2 /* PesterphoneAppDelegate.h */,
+				F39AAD58160D2165009170B2 /* PesterphoneAppDelegate.m */,
 				F39AAD59160D2165009170B2 /* IRCConnection.h */,
 				F39AAD5A160D2165009170B2 /* IRCConnection.m */,
 				F39AAD5B160D2165009170B2 /* MainStoryboard.storyboard */,
@@ -92,6 +98,10 @@
 				F39AAD5D160D2165009170B2 /* LoginViewController.m */,
 				F39AAD5E160D2165009170B2 /* ChatViewController.h */,
 				F39AAD5F160D2165009170B2 /* ChatViewController.m */,
+				EB5D5D28160EA54500BCCC6F /* ChumrollViewController.h */,
+				EB5D5D29160EA54500BCCC6F /* ChumrollViewController.m */,
+				EB5D5D31160EA9F300BCCC6F /* PesterlistViewController.h */,
+				EB5D5D32160EA9F300BCCC6F /* PesterlistViewController.m */,
 				F39AAD41160D2129009170B2 /* Supporting Files */,
 			);
 			path = Pesterchum;
@@ -172,11 +182,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F39AAD60160D2165009170B2 /* SSTAppDelegate.m in Sources */,
+				F39AAD60160D2165009170B2 /* PesterphoneAppDelegate.m in Sources */,
 				F39AAD61160D2165009170B2 /* IRCConnection.m in Sources */,
 				F39AAD63160D2165009170B2 /* LoginViewController.m in Sources */,
 				F39AAD64160D2165009170B2 /* ChatViewController.m in Sources */,
 				F39AAD6B160D21BF009170B2 /* main.m in Sources */,
+				EB5D5D2A160EA54500BCCC6F /* ChumrollViewController.m in Sources */,
+				EB5D5D33160EA9F300BCCC6F /* PesterlistViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +285,7 @@
 				F39AAD56160D2129009170B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

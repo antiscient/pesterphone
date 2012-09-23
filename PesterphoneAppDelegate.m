@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Systech Studios. All rights reserved.
 //
 
-#import "SSTAppDelegate.h"
+#import "PesterphoneAppDelegate.h"
 
-@implementation SSTAppDelegate
+@implementation PesterphoneAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -33,7 +33,7 @@
         else
             [ircConn setHandle: [NSString stringWithFormat:@"pesterClient%d", arc4random_uniform(999)]];
         
-        [chatController setConnection: ircConn];
+        //[chatController setConnection: ircConn];
 	}
 }
 

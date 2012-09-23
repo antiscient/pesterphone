@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <viewController id="2" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -30,7 +29,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="2hk-lm-Wyr" userLabel="connectButton">
-                                <rect key="frame" x="113" y="197" width="94" height="37"/>
+                                <rect key="frame" x="113" y="257" width="94" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Connect">
@@ -41,11 +40,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="4fS-LD-1j7" kind="modal" identifier="LoginSegue" id="TtO-U3-Ig0"/>
+                                    <segue destination="Jdp-xM-1SP" kind="modal" identifier="LoginSegue" modalTransitionStyle="crossDissolve" id="CQj-zb-x1x"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Chumhandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="McI-rP-lYH">
-                                <rect key="frame" x="20" y="115" width="226" height="26"/>
+                                <rect key="frame" x="20" y="173" width="226" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -54,7 +53,7 @@
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="8Yz-68-QmX" userLabel="chumhandleText">
-                                <rect key="frame" x="20" y="147" width="280" height="31"/>
+                                <rect key="frame" x="20" y="207" width="280" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="go"/>
@@ -65,34 +64,67 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98531170280612246" green="0.88944657325993692" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="fpN-fv-jJ3"/>
                     <connections>
                         <outlet property="chumhandleText" destination="8Yz-68-QmX" id="W5b-Sz-ULk"/>
                         <outlet property="myTextView" destination="kxb-3S-65v" id="f3G-ft-V9o"/>
                         <outlet property="username" destination="8Yz-68-QmX" id="Pft-RI-1sO"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="103" y="69"/>
+            <point key="canvasLocation" x="467" y="69"/>
         </scene>
-        <!--View Controller-->
+        <!--Chumroll View Controller-->
         <scene sceneID="tDp-Ng-mHZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UfM-Nm-HHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Jdp-xM-1SP" sceneMemberID="viewController">
+                <viewController id="Jdp-xM-1SP" customClass="ChumrollViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Qi-Ie-eB7">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tsp-yz-OgN" userLabel="chumListTable">
+                                <rect key="frame" x="0.0" y="44" width="320" height="275"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.15302136479591832" green="0.15302136479591832" blue="0.15302136479591832" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="6er-km-OE3" userLabel="headerBar">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="uIt-7D-QrQ"/>
+                                </items>
+                            </navigationBar>
+                            <tabBar contentMode="scaleToFill" id="2bH-KG-qw7">
+                                <rect key="frame" x="0.0" y="411" width="320" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Memos" id="HVv-KB-ilg"/>
+                                    <tabBarItem tag="1" title="Pesterlist" id="Bl9-Mp-xoi" userLabel="middleTab"/>
+                                    <tabBarItem tag="2" title="Pester User" id="Ir8-Kf-FVl"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="Jdp-xM-1SP" id="nz2-dt-5uS"/>
+                                </connections>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="aig-dt-sCB"/>
+                    <connections>
+                        <outlet property="chumTable" destination="tsp-yz-OgN" id="WDs-hQ-yeq"/>
+                        <segue destination="33x-1X-NMk" kind="modal" identifier="flipToPesterlist" modalTransitionStyle="flipHorizontal" id="aJy-Zy-Zoq"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UfM-Nm-HHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165" y="758"/>
+            <point key="canvasLocation" x="1004" y="-171"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="A49-Df-hWc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="leg-dP-9Gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="hD2-5C-aSm" customClass="ChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WoV-cm-3sO">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -108,12 +140,19 @@
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="Test" id="kxb-3S-65v" userLabel="chatTextView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textView>
+                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="3Jv-T3-Dfo" userLabel="headerBar">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="c23-5N-sy1"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -122,50 +161,91 @@
                         <outlet property="chatTextView" destination="kxb-3S-65v" id="Vdk-Ej-JtS"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="leg-dP-9Gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="984" y="-75"/>
+            <point key="canvasLocation" x="467" y="-504"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="BVG-a4-HQj">
+        <!--Pesterlist View Controller-->
+        <scene sceneID="zcP-PL-bp8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e9f-wz-zOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tabBarController id="4fS-LD-1j7" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="KAH-Ah-YPt">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
+                <viewController id="33x-1X-NMk" customClass="PesterlistViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u95-G1-1OT">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wuE-cl-AWo">
+                                <rect key="frame" x="0.0" y="44" width="320" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <tabBar contentMode="scaleToFill" id="s8q-Gv-oa8">
+                                <rect key="frame" x="0.0" y="411" width="320" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Memos" id="tg8-9r-3LL"/>
+                                    <tabBarItem tag="1" title="Chumroll" id="nhe-W1-GGC" userLabel="middleTab"/>
+                                    <tabBarItem tag="2" title="Pester User" id="pLW-ej-1vV"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="33x-1X-NMk" id="CLy-pJ-5ae"/>
+                                </connections>
+                            </tabBar>
+                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="zRE-5b-Gyx" userLabel="headerBar">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="a5y-01-PU8"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <connections>
-                        <segue destination="3QY-hm-6hX" kind="relationship" relationship="viewControllers" id="tvA-dL-ZPr"/>
+                        <segue destination="Jdp-xM-1SP" kind="modal" identifier="flipToChumroll" modalTransitionStyle="flipHorizontal" id="eJP-cK-meG"/>
                     </connections>
-                </tabBarController>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uip-CK-vVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13" y="758"/>
-        </scene>
-        <!--Navigation Controller - Item-->
-        <scene sceneID="kMI-OA-Onr">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b3M-i8-hVI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="3QY-hm-6hX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="oRd-cG-KAi"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WLi-1c-tht">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Jdp-xM-1SP" kind="relationship" relationship="rootViewController" id="hl1-fr-cup"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="593" y="766"/>
+            <point key="canvasLocation" x="1004" y="477"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="ChatViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChatViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissKeyboard:"/>
+                <relationship kind="action" name="sendMsg:"/>
+                <relationship kind="outlet" name="chatBarField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="chatTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="ChumrollViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChumrollViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="chumTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissKeyboard:"/>
+                <relationship kind="outlet" name="chumhandleText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="username" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="PesterlistViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PesterlistViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="CQj-zb-x1x"/>
+    </inferredMetricsTieBreakers>
 </document>
