@@ -18,11 +18,6 @@
 @synthesize chatTextView;
 @synthesize connection;
 
-- (void) setConnection:(IRCConnection*) connect
-{
-    connection = connect;
-}
-
 - (IBAction)dismissKeyboard:(id)sender
 {
     [chatBarField resignFirstResponder];
@@ -54,7 +49,7 @@
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your application might not need or want this behavior.
     CGRect bkgndRect = self.view.frame;
-    bkgndRect.origin.y -= kbSize.height;
+    bkgndRect.size.height -= kbSize.height;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration: 0.15f ];
@@ -88,8 +83,6 @@
     [chatTextView setDelegate:self];
     
     connection.chatBox = chatTextView;
-    NSString *urlStr = @"http://irc.mindfang.org";
-    [connection startWithURL:urlStr];
 }
 
 - (void)registerForKeyboardNotifications

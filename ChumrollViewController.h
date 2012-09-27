@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChumrollViewController : UIViewController <UITabBarDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *chumTable;
+@interface ChumrollViewController : UIViewController <UITabBarDelegate, UITableViewDelegate, UITableViewDataSource>
+{
+    NSString *chumhandle;
+    NSMutableArray *chums;
+}
 
+@property (weak, nonatomic) IBOutlet UITableView *chumTable;
+@property (weak, nonatomic) IBOutlet UINavigationBar *headerBar;
+@property (strong, nonatomic) NSArray *chums;
+
+-(void)setHandle:(NSString*)handle;
 
 @end

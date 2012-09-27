@@ -7,6 +7,7 @@
 //
 
 #import "IRCConnection.h"
+#import "PesterphoneAppDelegate.h"
 
 @implementation IRCConnection
 @synthesize chatBox;
@@ -28,7 +29,8 @@
             return;
         }
         
-        chatBox.text = @"Logging in...........";
+        if(chatBox)
+            chatBox.text = @"Logging in...........";
         loggedIn = false;
         loggingIn = false;
         
@@ -66,11 +68,11 @@
             event = @"NSStreamEventHasBytesAvailable";
             if (theStream == inputStream)
             {
-                uint8_t buffer[1024];
+                uint8_t buffer[4096];
                 int len;
                 while ([inputStream hasBytesAvailable])
                 {
-                    len = [inputStream read:buffer maxLength:1024];
+                    len = [inputStream read:buffer maxLength:4096];
                     if (len > 0)
                     {
                         NSMutableString *output = [[NSMutableString alloc] initWithBytes:buffer length:len encoding:NSUTF8StringEncoding];
@@ -92,8 +94,27 @@
                                 NSLog(@"Logged in.\n");
                                 loggedIn = true;
                                 loggingIn = false;
-                                chatBox.text = @"Logged in to Pesterchum.\n\n\n";
-                                [self dataSending:[NSString stringWithFormat:@"JOIN %@\n", @"#General_Chat"]];
+                                if( chatBox )
+                                    chatBox.text = @"Logged in to Pesterchum.\n\n\n";
+                                [self dataSending:@"JOIN #Pesterchum\n"];
+                                [self sendMsg:@"MOOD >0" to:@"#pesterchum"];
+                                
+                                PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+                                
+                                if( appDelegate.chumroll )
+                                {
+                                    NSMutableString *chums = [@"" mutableCopy];
+                                    
+                                    for( NSString *chum in appDelegate.chumroll.chums )
+                                    {
+                                        [chums appendString:chum];
+                                    }
+                                    
+                                    if( chums.length > 0 )
+                                        [self sendMsg:[NSString stringWithFormat:@"GETMOOD %@", chums] to:@"#pesterchum"];
+                                }
+                                
+                                // [self dataSending:[NSString stringWithFormat:@"JOIN %@\n", @"#General_Chat"]];
                             }
                             
                             if( [output rangeOfString:@"PING"].location != NSNotFound )
@@ -107,7 +128,7 @@
                                 if( [output rangeOfString:@"VERSION"].location != NSNotFound )
                                 {
                                     NSLog(@"Responding to VERSION request");
-                                    [self dataSending:[NSString stringWithFormat:@"NOTICE %@ \x01VERSION Pesterchum 3.41\x01", chumhandle]];
+                                    [self dataSending:[NSString stringWithFormat:@"NOTICE %@ \x01VERSION Pesterchum 3.41\x01", chumString]];
                                 }
                             }
                             
@@ -132,41 +153,93 @@
                                 if( parts.count > 2 )
                                 {
                                     NSString *chumString = [parts objectAtIndex:0];
-                                    NSString *chumhandle = [[[chumString componentsSeparatedByString:@"!"] objectAtIndex:0] substringFromIndex:1];
+                                    NSString *chumhandle = @"";
+                                    
+                                    if( [chumString rangeOfString:@"!"].location != NSNotFound )
+                                        chumhandle = [[[chumString componentsSeparatedByString:@"!"] objectAtIndex:0] substringFromIndex:1];
+                                    
                                     NSString *ircCommand = [parts objectAtIndex:1];
                                     NSString *target = [parts objectAtIndex:2];
                                     
-                                    if( parts.count > 3 )
+                                    if( [target isEqualToString: @"#pesterchum"] )
                                     {
-                                        NSString *message = [parts objectAtIndex:3];
+                                        if( parts.count > 3 )
+                                        {
+                                            NSString *message = [parts objectAtIndex:3];
+                                            
+                                            if( [message hasPrefix:@":MOOD"] )
+                                            {
+                                                PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+                                                int chumIndex = [appDelegate.chumroll.chums indexOfObject:chumhandle];
+                                                
+                                                if( chumIndex != NSNotFound )
+                                                {
+                                                    UITableViewCell *cell = [appDelegate.chumroll.chumTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:chumIndex inSection:0]];
+                                                    cell.textLabel.textColor = [UIColor whiteColor];
+                                                }
+                                            }
+                                            else if( [message hasPrefix:@":GETMOOD"] )
+                                            {
+                                                if( [[[line substringFromIndex:[line rangeOfString:[parts objectAtIndex:4]].location] substringFromIndex:1] rangeOfString:myHandle].location != NSNotFound )
+                                                    [self sendMsg:@"MOOD >0" to:@"#pesterchum"];
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if( parts.count > 3 )
+                                        {
+                                            NSString *message = [parts objectAtIndex:3];
+                                            
+                                            if( [ircCommand isEqualToString: @"PRIVMSG"] && ![message hasPrefix:@":PESTERCHUM"] )
+                                            {
+                                                display = [NSString stringWithFormat:@"<%@>%@",chumhandle,[[line substringFromIndex:[line rangeOfString:[parts objectAtIndex:3]].location] substringFromIndex:1]];
+                                            }
+                                        }
                                         
-                                        if( ![message hasPrefix:@":PESTERCHUM"] )
+                                        if( [ircCommand isEqualToString: @"QUIT"] )
                                         {
-                                            display = [NSString stringWithFormat:@"<%@>%@",chumhandle,[[line substringFromIndex:[line rangeOfString:[parts objectAtIndex:3]].location] substringFromIndex:1]];
+                                            display = [NSString stringWithFormat:@"%@ has logged off!", chumhandle];
+                                            
+                                            PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+                                            int chumIndex = [appDelegate.chumroll.chums indexOfObject:chumhandle];
+                                            
+                                            if( chumIndex != NSNotFound )
+                                            {
+                                                UITableViewCell *cell = [appDelegate.chumroll.chumTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:chumIndex inSection:0]];
+                                                cell.textLabel.textColor = [UIColor darkGrayColor];
+                                            }
                                         }
-                                    }
-                                    
-                                    if( ircCommand == @"PART" || ircCommand == @"QUIT" )
-                                    {
-                                        display = [NSString stringWithFormat:@"%@ has logged off!", chumhandle];
-                                    }
-                                    else if( ircCommand == @"JOIN" )
-                                    {
-                                        display = [NSString stringWithFormat:@"%@ has logged on!", chumhandle];
-                                    }
-                                    
-                                    if( [line rangeOfString:@"\x01"].location != NSNotFound )
-                                    {
-                                        if( [line rangeOfString:@"VERSION"].location != NSNotFound )
+                                        
+                                        if( [ircCommand isEqualToString: @"PART"] )
                                         {
-                                            NSLog(@"Responding to VERSION request");
-                                            [self dataSending:[NSString stringWithFormat:@"NOTICE %@ :\x01VERSION Pesterchum 3.41\x01", myHandle]];
-                                            display = @"";
+                                            display = [NSString stringWithFormat:@"%@ has logged off!", chumhandle];
                                         }
-                                    }
-                                    else if( display != @"" )
-                                    {
-                                        [self printToChat:display];
+                                        else if( [ircCommand isEqualToString: @"JOIN"] )
+                                        {
+                                            PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+                                            int chumIndex = [appDelegate.chumroll.chums indexOfObject:chumhandle];
+                                            
+                                            if( chumIndex != NSNotFound )
+                                            {
+                                                [self sendMsg:@"MOOD >0" to:@"#pesterchum"];
+                                            }
+                                            display = [NSString stringWithFormat:@"%@ has logged on!", chumhandle];
+                                        }
+                                        
+                                        if( [line rangeOfString:@"\x01"].location != NSNotFound )
+                                        {
+                                            if( [line rangeOfString:@"VERSION"].location != NSNotFound )
+                                            {
+                                                NSLog(@"Responding to VERSION request");
+                                                [self dataSending:[NSString stringWithFormat:@"NOTICE %@ :\x01VERSION Pesterchum 3.41\x01", [parts objectAtIndex:0] ]];
+                                                display = @"";
+                                            }
+                                        }
+                                        else if( display != @"" && chatBox )
+                                        {
+                                            [self printToChat:display];
+                                        }
                                     }
                                 }
                             }
@@ -241,7 +314,8 @@
         [self dataSending:out];
         NSLog(@"Sending-----------\"%@\"", out);
         
-        [self printToChat:[NSString stringWithFormat:@"%@\n", msg]];
+        if( chatBox )
+            [self printToChat:[NSString stringWithFormat:@"%@\n", msg]];
     }
 }
 
@@ -285,10 +359,10 @@
 {
     [inputStream close];
     [outputStream close];
-    [inputStream removeFromRunLoop:[NSRunLoop currentRunLoop]
-                           forMode:NSDefaultRunLoopMode];
-    [outputStream removeFromRunLoop:[NSRunLoop currentRunLoop]
-                            forMode:NSDefaultRunLoopMode]; [inputStream setDelegate:nil]; [outputStream setDelegate:nil];
+    [inputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [outputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [inputStream setDelegate:nil];
+    [outputStream setDelegate:nil];
     inputStream = nil;
     outputStream = nil;
 }

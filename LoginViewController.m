@@ -1,5 +1,5 @@
 //
-//  SSTViewController.m
+//  LoginViewController.m
 //  Pesterchum
 //
 //  Created by Michael Colvin on 9/14/12.
@@ -9,6 +9,8 @@
 #import "LoginViewController.h"
 #import "ChatViewController.h"
 #import "IRCConnection.h"
+#import "PesterphoneAppDelegate.h"
+#import "ChumrollViewController.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *username;
@@ -19,21 +21,31 @@
 @implementation LoginViewController
 @synthesize chumhandleText;
 @synthesize username;
-@synthesize password;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if ([segue.identifier isEqualToString:@"LoginSegue"])
 	{
-		ChatViewController *chatController = segue.destinationViewController;
+		ChumrollViewController *newController = segue.destinationViewController;
         
         IRCConnection *ircConn = [[IRCConnection alloc] init];
+        PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
         if( chumhandleText.text.length > 0 )
+        {
             [ircConn setHandle: chumhandleText.text];
+            [newController setHandle:chumhandleText.text];
+        }
         else
-            [ircConn setHandle: [NSString stringWithFormat:@"pesterClient%d", arc4random_uniform(999)]];
+        {
+            NSString *handle = [NSString stringWithFormat:@"pesterClient%d", arc4random_uniform(999)];
+            [ircConn setHandle: handle];
+            [newController setHandle:handle];
+        }
         
-        //[chatController setConnection: ircConn];
+        appDelegate.connection = ircConn;
+        NSString *urlStr = @"http://irc.mindfang.org";
+        [ircConn startWithURL:urlStr];
+        
 	}
 }
 
