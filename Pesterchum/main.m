@@ -2,7 +2,7 @@
 //  main.m
 //  Pesterchum
 //
-//  Created by Michael Colvin on 9/14/12.
+//  Created by Antiscient on 9/14/12.
 //  Copyright (c) 2012 Systech Studios. All rights reserved.
 //
 
