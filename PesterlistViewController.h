@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface PesterlistViewController : UIViewController <UITabBarDelegate>
+{
+    NSString *chumhandle;
+}
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *headerBar;
+
+-(void)setHandle:(NSString*)handle;
 
 @end

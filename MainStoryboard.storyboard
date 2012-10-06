@@ -88,6 +88,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.15302136479591832" green="0.15302136479591832" blue="0.15302136479591832" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Jdp-xM-1SP" id="e4u-su-pgf"/>
+                                    <outlet property="delegate" destination="Jdp-xM-1SP" id="8K0-hN-Tic"/>
+                                </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="6er-km-OE3" userLabel="headerBar">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -115,6 +119,7 @@
                     <navigationItem key="navigationItem" id="aig-dt-sCB"/>
                     <connections>
                         <outlet property="chumTable" destination="tsp-yz-OgN" id="WDs-hQ-yeq"/>
+                        <outlet property="headerBar" destination="6er-km-OE3" id="JM2-JK-anT"/>
                         <segue destination="33x-1X-NMk" kind="modal" identifier="flipToPesterlist" modalTransitionStyle="flipHorizontal" id="aJy-Zy-Zoq"/>
                     </connections>
                 </viewController>
@@ -203,6 +208,7 @@
                         <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
+                        <outlet property="headerBar" destination="zRE-5b-Gyx" id="cS1-pT-s0l"/>
                         <segue destination="Jdp-xM-1SP" kind="modal" identifier="flipToChumroll" modalTransitionStyle="flipHorizontal" id="eJP-cK-meG"/>
                     </connections>
                 </viewController>
@@ -211,41 +217,12 @@
             <point key="canvasLocation" x="1004" y="477"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="ChatViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChatViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard:"/>
-                <relationship kind="action" name="sendMsg:"/>
-                <relationship kind="outlet" name="chatBarField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="chatTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="ChumrollViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChumrollViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="chumTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard:"/>
-                <relationship kind="outlet" name="chumhandleText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="username" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="PesterlistViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PesterlistViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="CQj-zb-x1x"/>
+        <segue reference="eJP-cK-meG"/>
     </inferredMetricsTieBreakers>
 </document>
