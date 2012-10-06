@@ -2,7 +2,7 @@
 //  IRCConnection.m
 //  Pesterchum
 //
-//  Created by Michael Colvin on 9/15/12.
+//  Created by Antiscient on 9/15/12.
 //  Copyright (c) 2012 Systech Studios. All rights reserved.
 //
 
@@ -76,7 +76,7 @@
                     if (len > 0)
                     {
                         NSMutableString *output = [[NSMutableString alloc] initWithBytes:buffer length:len encoding:NSUTF8StringEncoding];
-                        NSLog(@"Received data--------------------%@", output);
+                        NSLog(@"-------- ---- ------------------- %@", output);
                         
                         
                         if( !loggedIn )
@@ -180,7 +180,9 @@
                                             }
                                             else if( [message hasPrefix:@":GETMOOD"] )
                                             {
-                                                if( [[[line substringFromIndex:[line rangeOfString:[parts objectAtIndex:4]].location] substringFromIndex:1] rangeOfString:myHandle].location != NSNotFound )
+                                                NSString *searchLine = [line substringFromIndex:[line rangeOfString:[parts objectAtIndex:4]].location];
+                                                NSLog( @"\n\n\n#######  SEARCHING FOR HANDLE ######     in string: %@\n\n\n", searchLine );
+                                                if( [searchLine rangeOfString:myHandle].location != NSNotFound )
                                                     [self sendMsg:@"MOOD >0" to:@"#pesterchum"];
                                             }
                                         }
@@ -215,17 +217,17 @@
                                         {
                                             display = [NSString stringWithFormat:@"%@ has logged off!", chumhandle];
                                         }
-                                        else if( [ircCommand isEqualToString: @"JOIN"] )
+                                        /*else if( [ircCommand isEqualToString: @"JOIN"] )
                                         {
                                             PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
                                             int chumIndex = [appDelegate.chumroll.chums indexOfObject:chumhandle];
                                             
                                             if( chumIndex != NSNotFound )
                                             {
-                                                [self sendMsg:@"MOOD >0" to:@"#pesterchum"];
+                                                [self sendMsg:[NSString stringWithFormat:@"GETMOOD %@", chumhandle] to:@"#pesterchum"];
                                             }
                                             display = [NSString stringWithFormat:@"%@ has logged on!", chumhandle];
-                                        }
+                                        }*/
                                         
                                         if( [line rangeOfString:@"\x01"].location != NSNotFound )
                                         {

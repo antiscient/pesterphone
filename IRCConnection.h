@@ -2,7 +2,7 @@
 //  IRCConnection.h
 //  Pesterchum
 //
-//  Created by Michael Colvin on 9/15/12.
+//  Created by Antiscient on 9/15/12.
 //  Copyright (c) 2012 Systech Studios. All rights reserved.
 //
 
