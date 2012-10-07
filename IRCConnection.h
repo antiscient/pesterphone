@@ -19,12 +19,13 @@
     NSString *myHandle;
     NSString *myInitials;
 }
-@property (weak, nonatomic) UITextView *chatBox;
+@property (weak, nonatomic) UIWebView *chatBox;
 
 - (void) startWithURL:(NSString*) urlStr;
 - (void) sendMsg:(NSString*)msg to:(NSString*)target;
 - (void) printToChat:(NSString*)msg;
 - (void) setHandle:(NSString*)name;
+- (NSString*) handle;
 - (NSString*) initials;
 
 + (NSString*) getInitials:(NSString*)name;

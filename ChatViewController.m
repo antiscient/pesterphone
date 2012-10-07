@@ -8,6 +8,7 @@
 
 #import "ChatViewController.h"
 #import "IRCConnection.h"
+#import "PesterphoneAppDelegate.h"
 
 @interface ChatViewController ()
 
@@ -16,7 +17,9 @@
 @implementation ChatViewController
 @synthesize chatBarField;
 @synthesize chatTextView;
+@synthesize borderLabel;
 @synthesize connection;
+@synthesize name;
 
 - (IBAction)dismissKeyboard:(id)sender
 {
@@ -27,7 +30,7 @@
 {
     if( chatBarField.text.length > 0 )
     {
-        [connection sendMsg:[NSString stringWithFormat:@"%@: %@", [connection initials], chatBarField.text] to:@"#General_Chat"];
+        [connection sendMsg:chatBarField.text to:name];
         chatBarField.text = @"";
     }
     [self dismissKeyboard:sender];
@@ -48,13 +51,30 @@
     
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your application might not need or want this behavior.
-    CGRect bkgndRect = self.view.frame;
+    CGRect bkgndRect = self.navigationController.topViewController.view.frame;
     bkgndRect.size.height -= kbSize.height;
     
+    CGRect chatBarRect = chatBarField.frame;
+    chatBarRect.origin.y -= kbSize.height;
+    
+    CGRect chatViewRect = chatTextView.frame;
+    chatViewRect.size.height -= kbSize.height;
+    
+    CGRect borderRect = borderLabel.frame;
+    borderRect.size.height -= kbSize.height;
+    
     [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration: 0.02f ];
+    [chatBarField setFrame:chatBarRect];
+    [borderLabel setFrame:borderRect];
+    [chatTextView setFrame:chatViewRect];
     [UIView setAnimationDuration: 0.15f ];
-    [self.view setFrame:bkgndRect];
+    [self.navigationController.topViewController.view setFrame:bkgndRect];
     [UIView commitAnimations];
+    
+    NSInteger height = [[chatTextView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
+    NSString* javascript = [NSString stringWithFormat:@"window.scrollBy(0, %d);", height];
+    [chatTextView stringByEvaluatingJavaScriptFromString:javascript];
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
@@ -66,13 +86,35 @@
     
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your application might not need or want this behavior.
-    CGRect bkgndRect = self.view.frame;
-    bkgndRect.origin.y += kbSize.height;
+    CGRect bkgndRect = self.navigationController.topViewController.view.frame;
+    bkgndRect.size.height += kbSize.height;
+    
+    CGRect chatBarRect = chatBarField.frame;
+    chatBarRect.origin.y += kbSize.height;
+    
+    CGRect chatViewRect = chatTextView.frame;
+    chatViewRect.size.height += kbSize.height;
+    
+    CGRect borderRect = borderLabel.frame;
+    borderRect.size.height += kbSize.height;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration: 0.2f ];
-    [self.view setFrame:bkgndRect];
+    [self.navigationController.topViewController.view setFrame:bkgndRect];
+    [chatTextView setFrame:chatViewRect];
+    [chatBarField setFrame:chatBarRect];
+    [borderLabel setFrame:borderRect];
     [UIView commitAnimations];
+    
+    NSInteger height = [[chatTextView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
+    NSString* javascript = [NSString stringWithFormat:@"window.scrollBy(0, %d);", height];
+    [chatTextView stringByEvaluatingJavaScriptFromString:javascript];
+}
+
+- (void) navBarTap
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"You tapped the bar!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)viewDidLoad
@@ -81,8 +123,27 @@
     [self registerForKeyboardNotifications];
 	// Do any additional setup after loading the view.
     [chatTextView setDelegate:self];
+    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    connection = appDelegate.connection;
+    name = appDelegate.activeChat;
+    
+    // get current date/time
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+    [dateFormatter setDateFormat:@"H:mm"];
+    NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
     
     connection.chatBox = chatTextView;
+    NSString* startText = [NSString stringWithFormat:@"-- %@ [%@] began pestering %@ [%@] at %@ --", [connection handle], [connection initials], name, [IRCConnection getInitials:name], currentTime];
+    [chatTextView loadHTMLString:[NSString stringWithFormat:@"<html><head></head> <body style=\"font-family:'Monaco', Monaco, monospace; font-weight:900; font-size:15px; line-height:95%%\">%@</body></html>", startText] baseURL:nil];
+    
+    self.navigationItem.title = name;
+    
+    /*UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTap)];
+    tap.numberOfTapsRequired = 1;*/
+    
+    [[self.navigationController.navigationBar.subviews objectAtIndex:1] setUserInteractionEnabled:YES];
 }
 
 - (void)registerForKeyboardNotifications
@@ -101,6 +162,8 @@
 {
     [self setChatBarField:nil];
     [self setChatTextView:nil];
+    [self setBorderLabel:nil];
+    [self setBorderLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

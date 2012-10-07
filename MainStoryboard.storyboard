@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -39,7 +39,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Jdp-xM-1SP" kind="modal" identifier="LoginSegue" modalTransitionStyle="crossDissolve" id="CQj-zb-x1x"/>
+                                    <segue destination="x0z-17-gLl" kind="modal" identifier="LoginSegue" modalTransitionStyle="crossDissolve" id="CQj-zb-x1x"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Chumhandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="McI-rP-lYH">
@@ -61,12 +61,11 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.98531170280612246" green="0.88944657325993692" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99615353949999996" green="0.72428937910000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="fpN-fv-jJ3"/>
                     <connections>
                         <outlet property="chumhandleText" destination="8Yz-68-QmX" id="W5b-Sz-ULk"/>
-                        <outlet property="myTextView" destination="kxb-3S-65v" id="f3G-ft-V9o"/>
                         <outlet property="username" destination="8Yz-68-QmX" id="Pft-RI-1sO"/>
                     </connections>
                 </viewController>
@@ -79,11 +78,11 @@
             <objects>
                 <viewController id="Jdp-xM-1SP" customClass="ChumrollViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Qi-Ie-eB7">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tsp-yz-OgN" userLabel="chumListTable">
-                                <rect key="frame" x="0.0" y="44" width="320" height="275"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="275"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.15302136479591832" green="0.15302136479591832" blue="0.15302136479591832" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -92,15 +91,8 @@
                                     <outlet property="delegate" destination="Jdp-xM-1SP" id="8K0-hN-Tic"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="6er-km-OE3" userLabel="headerBar">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="uIt-7D-QrQ"/>
-                                </items>
-                            </navigationBar>
                             <tabBar contentMode="scaleToFill" id="2bH-KG-qw7">
-                                <rect key="frame" x="0.0" y="411" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="367" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
@@ -113,29 +105,37 @@
                                 </connections>
                             </tabBar>
                         </subviews>
-                        <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99615353949999996" green="0.72428937910000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="aig-dt-sCB"/>
                     <connections>
                         <outlet property="chumTable" destination="tsp-yz-OgN" id="WDs-hQ-yeq"/>
-                        <outlet property="headerBar" destination="6er-km-OE3" id="JM2-JK-anT"/>
-                        <segue destination="33x-1X-NMk" kind="modal" identifier="flipToPesterlist" modalTransitionStyle="flipHorizontal" id="aJy-Zy-Zoq"/>
+                        <segue destination="Cxs-SB-724" kind="modal" identifier="flipToPesterlist" modalTransitionStyle="flipHorizontal" id="aJy-Zy-Zoq"/>
+                        <segue destination="hD2-5C-aSm" kind="push" identifier="pushChatView" id="1wV-jd-CTa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UfM-Nm-HHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="-171"/>
+            <point key="canvasLocation" x="1530" y="-171"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="A49-Df-hWc">
             <objects>
                 <viewController id="hD2-5C-aSm" customClass="ChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WoV-cm-3sO">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pqG-oV-Meo">
+                                <rect key="frame" x="6" y="6" width="309" height="367"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.73579001913265307" green="0.48055067502443488" blue="0.11709682385693816" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="vMi-BO-yiT" userLabel="InputTextField">
-                                <rect key="frame" x="11" y="424" width="299" height="31"/>
+                                <rect key="frame" x="11" y="376" width="299" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="send"/>
@@ -143,26 +143,20 @@
                                     <action selector="sendMsg:" destination="hD2-5C-aSm" eventType="editingDidEndOnExit" id="0ED-WU-nfs"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="Test" id="kxb-3S-65v" userLabel="chatTextView">
-                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textView>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="3Jv-T3-Dfo" userLabel="headerBar">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="c23-5N-sy1"/>
-                                </items>
-                            </navigationBar>
+                            <webView contentMode="scaleToFill" id="EVw-KU-JRG">
+                                <rect key="frame" x="11" y="11" width="299" height="357"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                            </webView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99615353954081631" green="0.72428937910647828" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="JAl-YA-6fc"/>
                     <connections>
+                        <outlet property="borderLabel" destination="pqG-oV-Meo" id="Tw0-iy-PVy"/>
                         <outlet property="chatBarField" destination="vMi-BO-yiT" id="4wh-Ik-3TF"/>
-                        <outlet property="chatTextView" destination="kxb-3S-65v" id="Vdk-Ej-JtS"/>
+                        <outlet property="chatTextView" destination="EVw-KU-JRG" id="5wQ-ZO-k7T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="leg-dP-9Gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -174,17 +168,17 @@
             <objects>
                 <viewController id="33x-1X-NMk" customClass="PesterlistViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u95-G1-1OT">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wuE-cl-AWo">
-                                <rect key="frame" x="0.0" y="44" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <tabBar contentMode="scaleToFill" id="s8q-Gv-oa8">
-                                <rect key="frame" x="0.0" y="411" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="367" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
@@ -196,65 +190,67 @@
                                     <outlet property="delegate" destination="33x-1X-NMk" id="CLy-pJ-5ae"/>
                                 </connections>
                             </tabBar>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="zRE-5b-Gyx" userLabel="headerBar">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="a5y-01-PU8"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="f5C-5M-REf"/>
                     <connections>
-                        <outlet property="headerBar" destination="zRE-5b-Gyx" id="cS1-pT-s0l"/>
-                        <segue destination="Jdp-xM-1SP" kind="modal" identifier="flipToChumroll" modalTransitionStyle="flipHorizontal" id="eJP-cK-meG"/>
+                        <segue destination="x0z-17-gLl" kind="modal" identifier="flipToChumroll" modalTransitionStyle="flipHorizontal" id="eJP-cK-meG"/>
+                        <segue destination="hD2-5C-aSm" kind="push" identifier="pushChatView" id="Yty-4T-lxc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uip-CK-vVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1530" y="477"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hOr-6t-LnS">
+            <objects>
+                <navigationController id="x0z-17-gLl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="rXs-oT-rN7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jdp-xM-1SP" kind="relationship" relationship="rootViewController" id="eoL-rF-Wbr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="myA-9h-efR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1004" y="-171"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ca0-ZN-5bY">
+            <objects>
+                <navigationController id="Cxs-SB-724" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="ZMv-Cu-viE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="33x-1X-NMk" kind="relationship" relationship="rootViewController" id="u8v-Mz-7dH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u0t-df-Tms" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="1004" y="477"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="ChatViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChatViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard:"/>
-                <relationship kind="action" name="sendMsg:"/>
-                <relationship kind="outlet" name="chatBarField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="chatTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="ChumrollViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChumrollViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="chumTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="headerBar" candidateClass="UINavigationBar"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard:"/>
-                <relationship kind="outlet" name="chumhandleText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="username" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="PesterlistViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PesterlistViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="headerBar" candidateClass="UINavigationBar"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="eJP-cK-meG"/>
+        <segue reference="CQj-zb-x1x"/>
+        <segue reference="Yty-4T-lxc"/>
     </inferredMetricsTieBreakers>
 </document>

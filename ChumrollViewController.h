@@ -12,10 +12,11 @@
 {
     NSString *chumhandle;
     NSMutableArray *chums;
+    
+    NSString *newChatChum;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *chumTable;
-@property (weak, nonatomic) IBOutlet UINavigationBar *headerBar;
 @property (strong, nonatomic) NSArray *chums;
 
 -(void)setHandle:(NSString*)handle;

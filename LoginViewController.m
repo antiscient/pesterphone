@@ -26,7 +26,7 @@
 {
 	if ([segue.identifier isEqualToString:@"LoginSegue"])
 	{
-		ChumrollViewController *newController = segue.destinationViewController;
+		ChumrollViewController *newController = ((UINavigationController*)segue.destinationViewController).viewControllers[0];
         
         IRCConnection *ircConn = [[IRCConnection alloc] init];
         PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];

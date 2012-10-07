@@ -15,7 +15,7 @@
 @end
 
 @implementation ChumrollViewController
-@synthesize chumTable, headerBar, chums;
+@synthesize chumTable, chums;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,13 +36,14 @@
 - (void)setHandle:(NSString *)handle
 {
     chumhandle = handle;
+    self.navigationItem.title = chumhandle;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if ([segue.identifier isEqualToString:@"flipToPesterlist"])
 	{
-		PesterlistViewController *newController = segue.destinationViewController;
+		PesterlistViewController *newController = ((UINavigationController*)segue.destinationViewController).viewControllers[0];
         [newController setHandle:chumhandle];
 	}
 }
@@ -75,7 +76,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if( [tableView cellForRowAtIndexPath:indexPath].textLabel.textColor == [UIColor whiteColor] )
+    //if( [tableView cellForRowAtIndexPath:indexPath].textLabel.textColor == [UIColor whiteColor] )
     {
         PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
         appDelegate.activeChat = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
@@ -83,9 +84,19 @@
         //
         // Open new chat here...
         //
+        
+        [self performSegueWithIdentifier: @"pushChatView" sender: self];
+        NSString *chum = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+        [appDelegate.connection sendMsg:@"PESTERCHUM:BEGIN" to:chum];
     }
 }
 
+
+- (void) navBarTap
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"You tapped the bar!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
 
 
 - (void)viewDidLoad
@@ -95,7 +106,13 @@
     PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
     appDelegate.chumroll = self;
     
-    [[headerBar topItem] setTitle:chumhandle];
+    self.navigationItem.title = chumhandle;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTap)];
+    tap.numberOfTapsRequired = 1;
+    
+    [[self.navigationController.navigationBar.subviews objectAtIndex:1] setUserInteractionEnabled:YES];
+    [[self.navigationController.navigationBar.subviews objectAtIndex:1] addGestureRecognizer:tap];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -119,7 +136,6 @@
 - (void)viewDidUnload
 {
     [self setChumTable:nil];
-    [self setHeaderBar:nil];
     [super viewDidUnload];
 }
 @end

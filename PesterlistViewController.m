@@ -35,6 +35,16 @@
 - (void)setHandle:(NSString *)handle
 {
     chumhandle = handle;
+    self.navigationItem.title = chumhandle;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"flipToChumroll"])
+	{
+		ChumrollViewController *newController = ((UINavigationController*)segue.destinationViewController).viewControllers[0];
+        [newController setHandle:chumhandle];
+	}
 }
 
 - (void)viewDidLoad
@@ -44,7 +54,7 @@
     PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
     appDelegate.pesterlist = self;
     
-    [[headerBar topItem] setTitle:chumhandle];
+    self.navigationItem.title = chumhandle;
 }
 
 - (void)didReceiveMemoryWarning
