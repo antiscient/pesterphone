@@ -14,9 +14,11 @@
 @interface PesterphoneAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) NSString *activeChat;
+@property (strong, nonatomic) Chat *activeChat;
 @property (strong, nonatomic) IRCConnection *connection;
 @property (strong, nonatomic) ChumrollViewController *chumroll;
 @property (strong, nonatomic) PesterlistViewController *pesterlist;
+@property (strong, nonatomic) NSMutableDictionary *chatList;
+@property (strong, nonatomic) NSString *myColor;
 
 @end

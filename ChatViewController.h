@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "IRCConnection.h"
+#import "Chat.h"
 
 @interface ChatViewController : UIViewController <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *chatBarField;
 @property (weak, nonatomic) IBOutlet UIWebView *chatTextView;
 @property (weak, nonatomic) IBOutlet UILabel *borderLabel;
 @property (strong, nonatomic) IRCConnection *connection;
-@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) Chat *chat;
 
 - (IBAction)dismissKeyboard:(id)sender;
 - (IBAction)sendMsg:(id)sender;

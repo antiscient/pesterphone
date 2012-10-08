@@ -19,7 +19,7 @@
 @synthesize chatTextView;
 @synthesize borderLabel;
 @synthesize connection;
-@synthesize name;
+@synthesize chat;
 
 - (IBAction)dismissKeyboard:(id)sender
 {
@@ -30,7 +30,7 @@
 {
     if( chatBarField.text.length > 0 )
     {
-        [connection sendMsg:chatBarField.text to:name];
+        [connection sendMsg:chatBarField.text to:chat.name];
         chatBarField.text = @"";
     }
     [self dismissKeyboard:sender];
@@ -123,22 +123,52 @@
     [self registerForKeyboardNotifications];
 	// Do any additional setup after loading the view.
     [chatTextView setDelegate:self];
+    
+    if ([[chatTextView subviews] count] > 0) {
+        // hide the shadows
+        for (UIView* shadowView in [[[chatTextView subviews] objectAtIndex:0] subviews]) {
+            [shadowView setHidden:YES];
+        }
+        // show the content
+        [[[[[chatTextView subviews] objectAtIndex:0] subviews] lastObject] setHidden:NO];
+    }
+    chatTextView.backgroundColor = [UIColor whiteColor];
+    
     PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     connection = appDelegate.connection;
-    name = appDelegate.activeChat;
+    chat = appDelegate.activeChat;
+    chat.controller = self;
     
     // get current date/time
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
-    [dateFormatter setDateFormat:@"H:mm"];
+    [dateFormatter setDateFormat:@"HH:mm"];
     NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
     
-    connection.chatBox = chatTextView;
-    NSString* startText = [NSString stringWithFormat:@"-- %@ [%@] began pestering %@ [%@] at %@ --", [connection handle], [connection initials], name, [IRCConnection getInitials:name], currentTime];
-    [chatTextView loadHTMLString:[NSString stringWithFormat:@"<html><head></head> <body style=\"font-family:'Monaco', Monaco, monospace; font-weight:900; font-size:15px; line-height:95%%\">%@</body></html>", startText] baseURL:nil];
+    NSString *beginPesterString = @"";
+    if( !chat.isOpen )
+    {
+        [connection sendMsg:@"PESTERCHUM:BEGIN" to:chat.name];
+        chat.isOpen = true;
+        beginPesterString = [NSString stringWithFormat:@"<span style=\"color:rgb(100,100,100)\">-- %@ <span style=\"color:rgb(%@)\">[%@]</span> began pestering %@ <span style=\"color:rgb(%@)\">[%@]</span> at %@ --</span><br/>",
+                             [connection handle], appDelegate.myColor, [connection initials], chat.name, chat.chatColor, [IRCConnection getInitials:chat.name], currentTime];
+    }
     
-    self.navigationItem.title = name;
+    [connection sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chat.name];
+    
+    NSString *startText;
+    if( appDelegate.activeChat.HTMLlog && [appDelegate.activeChat.HTMLlog length] > 0 )
+        startText = appDelegate.activeChat.HTMLlog;
+    else
+    {
+        startText = [NSString stringWithFormat:@"<html><head></head> <body style=\"font-family:'Monaco', Monaco, monospace; font-weight:900; font-size:15px; line-height:95%%\">%@</body></html>", beginPesterString];
+        appDelegate.activeChat.HTMLlog = [startText mutableCopy];
+    }
+    
+    [chatTextView loadHTMLString:startText baseURL:nil];
+    
+    self.navigationItem.title = chat.name;
     
     /*UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTap)];
     tap.numberOfTapsRequired = 1;*/

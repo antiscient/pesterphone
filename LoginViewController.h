@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *chumhandleText;
 
 - (IBAction)dismissKeyboard:(id)sender;
+- (IBAction)pressedConnect:(id)sender;
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Chat.h"
 
-@interface PesterlistViewController : UIViewController <UITabBarDelegate>
+@interface PesterlistViewController : UIViewController <UITabBarDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     NSString *chumhandle;
+    
+    Chat *newChat;
 }
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *headerBar;

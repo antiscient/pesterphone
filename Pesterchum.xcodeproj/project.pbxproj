@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB2DA10F1621E46F0063FA0D /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2DA10E1621E46F0063FA0D /* Chat.m */; };
 		EB5D5D2A160EA54500BCCC6F /* ChumrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D5D29160EA54500BCCC6F /* ChumrollViewController.m */; };
 		EB5D5D33160EA9F300BCCC6F /* PesterlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D5D32160EA9F300BCCC6F /* PesterlistViewController.m */; };
 		F39AAD3B160D2129009170B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3A160D2129009170B2 /* UIKit.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EB2DA10D1621E46F0063FA0D /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = SOURCE_ROOT; };
+		EB2DA10E1621E46F0063FA0D /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = SOURCE_ROOT; };
 		EB5D5D28160EA54500BCCC6F /* ChumrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChumrollViewController.h; sourceTree = SOURCE_ROOT; };
 		EB5D5D29160EA54500BCCC6F /* ChumrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChumrollViewController.m; sourceTree = SOURCE_ROOT; };
 		EB5D5D31160EA9F300BCCC6F /* PesterlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PesterlistViewController.h; sourceTree = SOURCE_ROOT; };
@@ -91,6 +94,8 @@
 			children = (
 				F39AAD57160D2165009170B2 /* PesterphoneAppDelegate.h */,
 				F39AAD58160D2165009170B2 /* PesterphoneAppDelegate.m */,
+				EB2DA10D1621E46F0063FA0D /* Chat.h */,
+				EB2DA10E1621E46F0063FA0D /* Chat.m */,
 				F39AAD59160D2165009170B2 /* IRCConnection.h */,
 				F39AAD5A160D2165009170B2 /* IRCConnection.m */,
 				F39AAD5B160D2165009170B2 /* MainStoryboard.storyboard */,
@@ -189,6 +194,7 @@
 				F39AAD6B160D21BF009170B2 /* main.m in Sources */,
 				EB5D5D2A160EA54500BCCC6F /* ChumrollViewController.m in Sources */,
 				EB5D5D33160EA9F300BCCC6F /* PesterlistViewController.m in Sources */,
+				EB2DA10F1621E46F0063FA0D /* Chat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

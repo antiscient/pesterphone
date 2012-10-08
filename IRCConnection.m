@@ -8,9 +8,10 @@
 
 #import "IRCConnection.h"
 #import "PesterphoneAppDelegate.h"
+#import "ChatViewController.h"
+
 
 @implementation IRCConnection
-@synthesize chatBox;
 
 -(id) init
 {
@@ -29,8 +30,6 @@
             return;
         }
         
-        if(chatBox)
-            [self printToChat:@"Logging in..........."];
         loggedIn = false;
         loggingIn = false;
         
@@ -97,8 +96,6 @@
                                 NSLog(@"Logged in.\n");
                                 loggedIn = true;
                                 loggingIn = false;
-                                if( chatBox )
-                                    [self printToChat:@"Logged in to Pesterchum.\n\n\n"];
                                 [self dataSending:@"JOIN #Pesterchum\n"];
                                 [self sendMsg:@"MOOD >0" to:@"#pesterchum"];
                                 
@@ -164,6 +161,7 @@
                                     NSString *ircCommand = [parts objectAtIndex:1];
                                     NSString *target = [parts objectAtIndex:2];
                                     
+                                    
                                     if( [target isEqualToString: @"#pesterchum"] )
                                     {
                                         if( parts.count > 3 )
@@ -192,6 +190,9 @@
                                     }
                                     else
                                     {
+                                        PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+                                        Chat *theChat = [appDelegate.chatList valueForKey:chumhandle];
+                                        
                                         if( parts.count > 3 )
                                         {
                                             NSString *message = [parts objectAtIndex:3];
@@ -200,7 +201,7 @@
                                             {
                                                 if( [message hasPrefix:@":PESTERCHUM:"] )
                                                 {
-                                                    if( [message hasPrefix:@":PESTERCHUM:CEASE"] )
+                                                    if( theChat && [message hasPrefix:@":PESTERCHUM:CEASE"] )
                                                     {
                                                         // get current date/time
                                                         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -208,30 +209,52 @@
                                                         [dateFormatter setDateFormat:@"H:mm"];
                                                         NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
                                                         
-                                                        display = [NSString stringWithFormat:@"-- %@ [%@] ceased pestering %@ [%@] at %@ --", chumhandle, [IRCConnection getInitials:chumhandle], myHandle, myInitials, currentTime ];
+                                                        display = [NSString stringWithFormat:@"<c=100,100,100>-- %@ <c=%@>[%@]</c> ceased pestering %@ <c=%@>[%@]</c> at %@ --</c>", chumhandle, theChat.chatColor, [IRCConnection getInitials:chumhandle],
+                                                                   myHandle, appDelegate.myColor, myInitials, currentTime ];
+                                                        theChat.isOpen = false;
+                                                    }
+                                                    if( [message hasPrefix:@":PESTERCHUM:BEGIN"] )
+                                                    {
+                                                        // get current date/time
+                                                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                        // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+                                                        [dateFormatter setDateFormat:@"H:mm"];
+                                                        NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
+                                                        
+                                                        display = [NSString stringWithFormat:@"<c=100,100,100>-- %@ <c=%@>[%@]</c> began pestering %@ <c=%@>[%@]</c> at %@ --</c>", chumhandle, theChat.chatColor, [IRCConnection getInitials:chumhandle],
+                                                                   myHandle, appDelegate.myColor, myInitials, currentTime ];
+                                                        
+                                                        if( !theChat )
+                                                        {
+                                                            [appDelegate.chatList setValue:[[Chat alloc] initWithName:chumhandle] forKey:chumhandle];
+                                                            theChat = [appDelegate.chatList valueForKey:chumhandle];
+                                                        }
+                                                        
+                                                        theChat.isOpen = true;
+                                                        [self sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chumhandle];
                                                     }
                                                 }
-                                                else if( [message hasPrefix:@":COLOR >"] )
+                                                else if( theChat )
                                                 {
-                                                    //
-                                                    //  Insert text color change here.
-                                                    //
-                                                }
-                                                else
-                                                {
-                                                    // get current date/time
-                                                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                                    // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
-                                                    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-                                                    NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
-                                                    currentTime = [currentTime substringToIndex:[currentTime length] - 3];
-                                                    
-                                                    display = [NSString stringWithFormat:@"[%@] %@: %@", currentTime, [IRCConnection getInitials:chumhandle],[[line substringFromIndex:[line rangeOfString:[parts objectAtIndex:3]].location] substringFromIndex:1]];
+                                                    if( [message hasPrefix:@":COLOR"] && parts.count > 4 && [[parts objectAtIndex:4] hasPrefix:@">"] )
+                                                    {
+                                                        theChat.chatColor = [[parts objectAtIndex:4] substringFromIndex:1];
+                                                    }
+                                                    else
+                                                    {
+                                                        // get current date/time
+                                                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                                        // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+                                                        [dateFormatter setDateFormat:@"hh:mm"];
+                                                        NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
+                                                        
+                                                        display = [NSString stringWithFormat:@"[%@] <c=%@>%@: %@</c>", currentTime, theChat.chatColor, [IRCConnection getInitials:chumhandle],[[line substringFromIndex:[line rangeOfString:[parts objectAtIndex:3]].location] substringFromIndex:1]];
+                                                    }
                                                 }
                                             }
                                         }
                                         
-                                        if( [ircCommand isEqualToString: @"QUIT"] )
+                                        if( [ircCommand isEqualToString: @"QUIT"] || [ircCommand isEqualToString:@"NICK"] )
                                         {
                                             //display = [NSString stringWithFormat:@"%@ has logged off!", chumhandle];
                                             
@@ -270,9 +293,9 @@
                                                 display = @"";
                                             }
                                         }
-                                        else if( display != @"" && chatBox )
+                                        else if( display != @"" && theChat )
                                         {
-                                            [self printToChat:display];
+                                            [theChat printToChat:display];
                                         }
                                     }
                                 }
@@ -344,54 +367,27 @@
     
     for(NSString* line in lines)
     {
-        NSString *out = [NSString stringWithFormat:@"PRIVMSG %@ :%@\n",target, line];
-        [self dataSending:out];
-        NSLog(@"Sending-----------\"%@\"", out);
+        PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+        Chat *theChat = [appDelegate.chatList valueForKey:target];
+        NSString *out = line;
         
-        if( chatBox && ![msg hasPrefix:@"PESTERCHUM:"] && ![msg hasPrefix:@"MOOD >"] && ![msg hasPrefix:@"COLOR >"] )
+        if( ![line hasPrefix:@"PESTERCHUM:"] && ![line hasPrefix:@"MOOD >"] && ![line hasPrefix:@"COLOR >"] && ![line hasPrefix:@"GETMOOD"] )
         {
+            out = [NSString stringWithFormat:@"<c=%@>%@</c>", appDelegate.myColor, out];
+            
             // get current date/time
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
-            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            [dateFormatter setDateFormat:@"hh:mm"];
             NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
-            currentTime = [currentTime substringToIndex:[currentTime length] - 3];
             
-            [self printToChat:[NSString stringWithFormat:@"[%@] %@: %@", currentTime, myInitials, msg]];
+            [theChat printToChat:[NSString stringWithFormat:@"[%@] <c=%@>%@: %@</c>", currentTime, appDelegate.myColor, myInitials, out]];
         }
+        
+        out = [NSString stringWithFormat:@"PRIVMSG %@ :%@\n",target, out];
+        [self dataSending:out];
+        NSLog(@"Sending-----------\"%@\"", out);
     }
-}
-
-- (void) printToChat:(NSString*)msg
-{
-    msg = [msg stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    msg = [msg stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    msg = [msg stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    msg = [msg stringByAppendingString:@"<br/>"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"<c=" withString:@"<span style=\\\"color:rgb("];
-    // Terrible hack.
-    msg = [msg stringByReplacingOccurrencesOfString:@"0>" withString:@"0)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"1>" withString:@"1)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"2>" withString:@"2)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"3>" withString:@"3)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"4>" withString:@"4)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"5>" withString:@"5)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"6>" withString:@"6)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"7>" withString:@"7)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"8>" withString:@"8)\\\">"];
-    msg = [msg stringByReplacingOccurrencesOfString:@"9>" withString:@"9)\\\">"];
-    
-    msg = [msg stringByReplacingOccurrencesOfString:@"</c>" withString:@"</span>"];
-    
-    NSLog( @"\n\n\n\n$$$$$    Message = %@    $$$$$\n\n\n\n", msg );
-    
-    NSString* javascript = [NSString stringWithFormat:@"document.body.innerHTML += \"%@\"", msg];
-    //+= '%@<br/>';", msg];
-    [chatBox stringByEvaluatingJavaScriptFromString:javascript];
-    
-    NSInteger height = [[chatBox stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
-    javascript = [NSString stringWithFormat:@"window.scrollBy(0, %d);", height];
-    [chatBox stringByEvaluatingJavaScriptFromString:javascript];
 }
 
 - (void) setHandle:(NSString *)name

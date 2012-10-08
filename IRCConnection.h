@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class ChatViewController;
 @interface IRCConnection : NSObject <NSStreamDelegate>
 {
     NSInputStream * inputStream;
@@ -19,11 +20,9 @@
     NSString *myHandle;
     NSString *myInitials;
 }
-@property (weak, nonatomic) UIWebView *chatBox;
 
 - (void) startWithURL:(NSString*) urlStr;
 - (void) sendMsg:(NSString*)msg to:(NSString*)target;
-- (void) printToChat:(NSString*)msg;
 - (void) setHandle:(NSString*)name;
 - (NSString*) handle;
 - (NSString*) initials;

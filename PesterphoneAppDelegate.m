@@ -9,9 +9,12 @@
 #import "PesterphoneAppDelegate.h"
 
 @implementation PesterphoneAppDelegate
+@synthesize chatList, myColor;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    chatList = [NSMutableDictionary dictionary];
+    myColor = @"200,0,0";
     // Override point for customization after application launch.
     return YES;
 }

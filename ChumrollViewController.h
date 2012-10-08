@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Chat.h"
 
 @interface ChumrollViewController : UIViewController <UITabBarDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     NSString *chumhandle;
     NSMutableArray *chums;
     
-    NSString *newChatChum;
+    Chat *newChat;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *chumTable;

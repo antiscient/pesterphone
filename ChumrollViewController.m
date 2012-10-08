@@ -9,6 +9,7 @@
 #import "ChumrollViewController.h"
 #import "PesterlistViewController.h"
 #import "PesterphoneAppDelegate.h"
+#import "ChatViewController.h"
 
 @interface ChumrollViewController ()
 
@@ -46,6 +47,11 @@
 		PesterlistViewController *newController = ((UINavigationController*)segue.destinationViewController).viewControllers[0];
         [newController setHandle:chumhandle];
 	}
+	if ([segue.identifier isEqualToString:@"pushChatView"])
+	{
+		ChatViewController *newController = segue.destinationViewController;
+        newController.chat = newChat;
+	}
 }
 
 
@@ -58,7 +64,8 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     static NSString *CellIdentifier = @"Cell";
     
@@ -79,15 +86,21 @@
     //if( [tableView cellForRowAtIndexPath:indexPath].textLabel.textColor == [UIColor whiteColor] )
     {
         PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
-        appDelegate.activeChat = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
         
         //
         // Open new chat here...
         //
+        NSString *chum = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+        
+        if( [appDelegate.chatList valueForKey:chum] )
+            newChat = [appDelegate.chatList valueForKey:chum];
+        else
+            newChat = [[Chat alloc] initWithName:chum];
+        
+        appDelegate.activeChat = newChat;
+        [appDelegate.chatList setValue:newChat forKey:chum];
         
         [self performSegueWithIdentifier: @"pushChatView" sender: self];
-        NSString *chum = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
-        [appDelegate.connection sendMsg:@"PESTERCHUM:BEGIN" to:chum];
     }
 }
 
