@@ -17,7 +17,10 @@
 }
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *headerBar;
+@property (weak, nonatomic) IBOutlet UITableView *pesterlistTable;
 
 -(void)setHandle:(NSString*)handle;
+-(void)startChat;
+-(void)reloadTable;
 
 @end

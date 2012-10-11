@@ -16,22 +16,18 @@
 @end
 
 @implementation ChumrollViewController
-@synthesize chumTable, chums;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize chumTable, chums, chumMoods;
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
-    if( item.tag == 1 )
-        [self performSegueWithIdentifier: @"flipToPesterlist" sender: self];
+    if( item.tag == 0 )
+        [self performSegueWithIdentifier:@"ShowMemos" sender:self];
+    else if( item.tag == 1 )
+        [self flipToPesterlist];
+    else if( item.tag == 2 )
+        [self performSegueWithIdentifier: @"ShowPesterUser" sender: self];
+    
+    [tabBar setSelectedItem:nil];
 }
 
 - (void)setHandle:(NSString *)handle
@@ -40,13 +36,30 @@
     self.navigationItem.title = chumhandle;
 }
 
+- (Boolean) addChum:(NSString *)theChum
+{
+    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    for( NSString *chum in chums )
+    {
+        if( [[chum lowercaseString] isEqualToString:[theChum lowercaseString]] )
+        {
+            return false;
+        }
+    }
+    [chums addObject:theChum];
+    [chumMoods setValue:[NSNumber numberWithInt:0] forKey:theChum];
+    [appDelegate.connection sendMsg:[NSString stringWithFormat:@"GETMOOD %@", theChum] to:@"#pesterchum"];
+    
+    NSLog(@"\n\n           Adding chum %@....             \n\n", theChum );
+    [prefs setObject:chums forKey:@"chumlistArray"];
+    [prefs synchronize];
+    return true;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:@"flipToPesterlist"])
-	{
-		PesterlistViewController *newController = ((UINavigationController*)segue.destinationViewController).viewControllers[0];
-        [newController setHandle:chumhandle];
-	}
 	if ([segue.identifier isEqualToString:@"pushChatView"])
 	{
 		ChatViewController *newController = segue.destinationViewController;
@@ -54,6 +67,24 @@
 	}
 }
 
+- (void) flipToPesterlist
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    PesterlistViewController *pesterlistController = (PesterlistViewController*)[sb instantiateViewControllerWithIdentifier:@"PesterlistView"];
+    [pesterlistController setHandle:chumhandle];
+    [UIView transitionWithView:self.navigationController.view duration:0.6 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{[self.navigationController setViewControllers:[NSArray arrayWithObject:pesterlistController] animated:NO];} completion:NULL];
+}
+
+- (void) startChat
+{
+    [[self modalViewController] dismissModalViewControllerAnimated:YES];
+    [self performSegueWithIdentifier: @"pushChatView" sender: self];
+}
+
+- (void)reloadTable
+{
+    [chumTable reloadData];
+}
 
 
 // Customize the number of rows in the table view.
@@ -76,8 +107,15 @@
     }
     
     // Configure the cell.
-    cell.textLabel.text = [self.chums objectAtIndex: [indexPath row]];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
+    NSString *chumName = [self.chums objectAtIndex: [indexPath row]];
+    cell.textLabel.text = chumName;
+    if( [chumMoods valueForKey:chumName] == nil || [[chumMoods valueForKey:chumName] integerValue] == 0 )
+        cell.textLabel.textColor = [UIColor darkGrayColor];
+    else
+        cell.textLabel.textColor = [UIColor whiteColor];
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    
     return cell;
 }
 
@@ -125,11 +163,12 @@
     tap.numberOfTapsRequired = 1;
     
     [[self.navigationController.navigationBar.subviews objectAtIndex:1] setUserInteractionEnabled:YES];
-    [[self.navigationController.navigationBar.subviews objectAtIndex:1] addGestureRecognizer:tap];
+    [[self.navigationController.navigationBar.subviews objectAtIndex:1] setGestureRecognizers:[NSArray arrayWithObject:tap]];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    self.chums = [prefs arrayForKey:@"chumlistArray"];
+    self.chums = [[prefs arrayForKey:@"chumlistArray"] mutableCopy];
+    chumMoods = [NSMutableDictionary dictionary];
     
     if( !self.chums )
     {
@@ -138,6 +177,17 @@
         [prefs setObject:self.chums forKey:@"chumlistArray"];
         [prefs synchronize];
     }
+    
+    for( int i = 0; i < [chums count]; i++ )
+    {
+        [chumMoods setValue:[NSNumber numberWithInt:0] forKey:[chums objectAtIndex:i]];
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self reloadTable];
 }
 
 - (void)didReceiveMemoryWarning

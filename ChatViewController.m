@@ -18,6 +18,8 @@
 @synthesize chatBarField;
 @synthesize chatTextView;
 @synthesize borderLabel;
+@synthesize chatBorderLabel;
+@synthesize backgroundLabel;
 @synthesize connection;
 @synthesize chat;
 
@@ -56,6 +58,7 @@
     
     CGRect chatBarRect = chatBarField.frame;
     chatBarRect.origin.y -= kbSize.height;
+    chatBarRect.size.width = 290;
     
     CGRect chatViewRect = chatTextView.frame;
     chatViewRect.size.height -= kbSize.height;
@@ -63,11 +66,20 @@
     CGRect borderRect = borderLabel.frame;
     borderRect.size.height -= kbSize.height;
     
+    CGRect chatBorderRect = chatBorderLabel.frame;
+    chatBorderRect.origin.y -= kbSize.height;
+    chatBorderRect.size.width = 293;
+    
+    CGRect bgRect = backgroundLabel.frame;
+    bgRect.size.height -= kbSize.height;
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration: 0.02f ];
     [chatBarField setFrame:chatBarRect];
+    [chatBorderLabel setFrame:chatBorderRect];
     [borderLabel setFrame:borderRect];
     [chatTextView setFrame:chatViewRect];
+    [backgroundLabel setFrame:bgRect];
     [UIView setAnimationDuration: 0.15f ];
     [self.navigationController.topViewController.view setFrame:bkgndRect];
     [UIView commitAnimations];
@@ -91,6 +103,7 @@
     
     CGRect chatBarRect = chatBarField.frame;
     chatBarRect.origin.y += kbSize.height;
+    chatBarRect.size.width = 200;
     
     CGRect chatViewRect = chatTextView.frame;
     chatViewRect.size.height += kbSize.height;
@@ -98,12 +111,21 @@
     CGRect borderRect = borderLabel.frame;
     borderRect.size.height += kbSize.height;
     
+    CGRect chatBorderRect = chatBorderLabel.frame;
+    chatBorderRect.origin.y += kbSize.height;
+    chatBorderRect.size.width = 203;
+    
+    CGRect bgRect = backgroundLabel.frame;
+    bgRect.size.height += kbSize.height;
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration: 0.2f ];
     [self.navigationController.topViewController.view setFrame:bkgndRect];
     [chatTextView setFrame:chatViewRect];
     [chatBarField setFrame:chatBarRect];
     [borderLabel setFrame:borderRect];
+    [chatBorderLabel setFrame:chatBorderRect];
+    [backgroundLabel setFrame:bgRect];
     [UIView commitAnimations];
     
     NSInteger height = [[chatTextView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
@@ -147,24 +169,20 @@
     NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
     
     NSString *beginPesterString = @"";
+    NSString *startText = appDelegate.activeChat.HTMLlog;
+    
     if( !chat.isOpen )
     {
         [connection sendMsg:@"PESTERCHUM:BEGIN" to:chat.name];
         chat.isOpen = true;
+        NSLog( @"Chat is now open." );
         beginPesterString = [NSString stringWithFormat:@"<span style=\"color:rgb(100,100,100)\">-- %@ <span style=\"color:rgb(%@)\">[%@]</span> began pestering %@ <span style=\"color:rgb(%@)\">[%@]</span> at %@ --</span><br/>",
                              [connection handle], appDelegate.myColor, [connection initials], chat.name, chat.chatColor, [IRCConnection getInitials:chat.name], currentTime];
+        startText = [startText stringByReplacingOccurrencesOfString:@"</body>" withString:[NSString stringWithFormat:@"%@</body>", beginPesterString] ];
+        [connection sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chat.name];
     }
     
-    [connection sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chat.name];
-    
-    NSString *startText;
-    if( appDelegate.activeChat.HTMLlog && [appDelegate.activeChat.HTMLlog length] > 0 )
-        startText = appDelegate.activeChat.HTMLlog;
-    else
-    {
-        startText = [NSString stringWithFormat:@"<html><head></head> <body style=\"font-family:'Monaco', Monaco, monospace; font-weight:900; font-size:15px; line-height:95%%\">%@</body></html>", beginPesterString];
-        appDelegate.activeChat.HTMLlog = [startText mutableCopy];
-    }
+    appDelegate.activeChat.HTMLlog = [startText mutableCopy];
     
     [chatTextView loadHTMLString:startText baseURL:nil];
     
@@ -194,6 +212,8 @@
     [self setChatTextView:nil];
     [self setBorderLabel:nil];
     [self setBorderLabel:nil];
+    [self setBackgroundLabel:nil];
+    [self setChatBorderLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

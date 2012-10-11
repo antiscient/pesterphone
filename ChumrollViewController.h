@@ -18,8 +18,12 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *chumTable;
-@property (strong, nonatomic) NSArray *chums;
+@property (strong, nonatomic) NSMutableArray *chums;
+@property (strong, nonatomic) NSMutableDictionary *chumMoods;
 
 -(void)setHandle:(NSString*)handle;
+-(Boolean)addChum:(NSString*)theChum;
+-(void)startChat;
+-(void)reloadTable;
 
 @end

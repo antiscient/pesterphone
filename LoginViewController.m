@@ -80,6 +80,13 @@
     // NSLog(@"Saving \"%@\" as handle...", [prefs stringForKey:@"defaultHandle"]);
 }
 
+
+- (IBAction)dismissKeyboardAndGo:(id)sender
+{
+    [self dismissKeyboard:self];
+    [self pressedConnect:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

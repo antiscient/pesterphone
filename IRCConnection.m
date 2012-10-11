@@ -175,8 +175,8 @@
                                                 
                                                 if( chumIndex != NSNotFound )
                                                 {
-                                                    UITableViewCell *cell = [appDelegate.chumroll.chumTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:chumIndex inSection:0]];
-                                                    cell.textLabel.textColor = [UIColor whiteColor];
+                                                    [appDelegate.chumroll.chumMoods setValue:[NSNumber numberWithInt:1] forKey:chumhandle];
+                                                    [appDelegate.chumroll reloadTable];
                                                 }
                                             }
                                             else if( [message hasPrefix:@":GETMOOD"] )

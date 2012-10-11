@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *chatBarField;
 @property (weak, nonatomic) IBOutlet UIWebView *chatTextView;
 @property (weak, nonatomic) IBOutlet UILabel *borderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *chatBorderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *backgroundLabel;
 @property (strong, nonatomic) IRCConnection *connection;
 @property (strong, nonatomic) Chat *chat;
 
