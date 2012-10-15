@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableDictionary *chatMoodList;
 @property (strong, nonatomic) NSString *chatColor;
 @property Boolean isOpen;
+@property Boolean isMemo;
 @property (weak, nonatomic) ChatViewController *controller;
 
 - (id)initWithName:(NSString*)newName;

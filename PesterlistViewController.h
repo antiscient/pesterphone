@@ -21,6 +21,7 @@
 
 -(void)setHandle:(NSString*)handle;
 -(void)startChat;
+-(void)startChatPush;
 -(void)reloadTable;
 
 @end

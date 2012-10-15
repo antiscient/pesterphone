@@ -81,6 +81,12 @@
     [self performSegueWithIdentifier: @"pushChatView" sender: self];
 }
 
+- (void) startChatPush
+{
+    [[self navigationController] popToRootViewControllerAnimated:YES];
+    [self performSegueWithIdentifier: @"pushChatView" sender: self];
+}
+
 - (void)reloadTable
 {
     [chumTable reloadData];

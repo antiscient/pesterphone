@@ -10,14 +10,17 @@
 #import "IRCConnection.h"
 #import "ChumrollViewController.h"
 #import "PesterlistViewController.h"
+#import "MemoViewController.h"
 
 @interface PesterphoneAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) Chat *activeChat;
 @property (strong, nonatomic) IRCConnection *connection;
-@property (strong, nonatomic) ChumrollViewController *chumroll;
-@property (strong, nonatomic) PesterlistViewController *pesterlist;
+@property (weak, nonatomic) ChumrollViewController *chumroll;
+@property (weak, nonatomic) PesterlistViewController *pesterlist;
+@property (weak, nonatomic) MemoViewController *memoView;
+@property (strong, nonatomic) NSMutableArray *memoList;
 @property (strong, nonatomic) NSMutableDictionary *chatList;
 @property (strong, nonatomic) NSString *myColor;
 

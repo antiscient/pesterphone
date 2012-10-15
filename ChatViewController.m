@@ -15,6 +15,7 @@
 @end
 
 @implementation ChatViewController
+@synthesize menuContainer;
 @synthesize chatBarField;
 @synthesize chatTextView;
 @synthesize borderLabel;
@@ -22,6 +23,7 @@
 @synthesize backgroundLabel;
 @synthesize connection;
 @synthesize chat;
+@synthesize menuController;
 
 - (IBAction)dismissKeyboard:(id)sender
 {
@@ -173,18 +175,37 @@
     
     if( !chat.isOpen )
     {
-        [connection sendMsg:@"PESTERCHUM:BEGIN" to:chat.name];
+        NSString *verb = @"began pestering";
+        NSString *chatInitials = @" ";
+        NSString *chatName = chat.name;
+        if( chat.isMemo )
+        {
+            [connection dataSending:[NSString stringWithFormat:@"JOIN %@\n", chat.name]];
+            [connection sendMsg:@"PESTERCHUM:TIME>i" to:chat.name];
+            verb = @"opened memo on board";
+            chatName = [[[chatName substringFromIndex:1] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
+        }
+        else
+        {
+            [connection sendMsg:@"PESTERCHUM:BEGIN" to:chat.name];
+            [connection sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chat.name];
+            chatInitials = [NSString stringWithFormat:@" [%@]", [IRCConnection getInitials:chat.name]];
+        }
+        
         chat.isOpen = true;
         NSLog( @"Chat is now open." );
-        beginPesterString = [NSString stringWithFormat:@"<span style=\"color:rgb(100,100,100)\">-- %@ <span style=\"color:rgb(%@)\">[%@]</span> began pestering %@ <span style=\"color:rgb(%@)\">[%@]</span> at %@ --</span><br/>",
-                             [connection handle], appDelegate.myColor, [connection initials], chat.name, chat.chatColor, [IRCConnection getInitials:chat.name], currentTime];
+        beginPesterString = [NSString stringWithFormat:@"<span style=\"color:rgb(100,100,100)\">-- %@ <span style=\"color:rgb(%@)\">[%@]</span> %@ %@<span style=\"color:rgb(%@)\">%@</span> at %@ --</span><br/>",
+                             [connection handle], appDelegate.myColor, [connection initials], verb, chatName, chat.chatColor, chatInitials, currentTime];
         startText = [startText stringByReplacingOccurrencesOfString:@"</body>" withString:[NSString stringWithFormat:@"%@</body>", beginPesterString] ];
-        [connection sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chat.name];
     }
     
     appDelegate.activeChat.HTMLlog = [startText mutableCopy];
     
     [chatTextView loadHTMLString:startText baseURL:nil];
+    
+    
+    self.menuController = (ChatMenuViewController*)[self.childViewControllers lastObject];
+    menuController.parent = self;
     
     self.navigationItem.title = chat.name;
     
@@ -214,6 +235,7 @@
     [self setBorderLabel:nil];
     [self setBackgroundLabel:nil];
     [self setChatBorderLabel:nil];
+    [self setMenuContainer:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

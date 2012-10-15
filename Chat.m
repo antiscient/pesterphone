@@ -10,7 +10,7 @@
 #import "ChatViewController.h"
 
 @implementation Chat
-@synthesize name, HTMLlog, chatMoodList, chatColor, isOpen, controller;
+@synthesize name, HTMLlog, chatMoodList, chatColor, isOpen, isMemo, controller;
 
 -(id) initWithName:(NSString*) newName
 {
@@ -21,6 +21,7 @@
     chatColor = @"0,0,0";
     [chatMoodList setValue:@"0" forKey:name];
     isOpen = false;
+    isMemo = false;
     return self;
 }
 

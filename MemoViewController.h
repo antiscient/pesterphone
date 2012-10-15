@@ -13,7 +13,10 @@
     NSString *selectedMemo;
 }
 
+@property (weak, nonatomic) IBOutlet UITableView *memoTable;
+
 - (IBAction)joinMemo:(id)sender;
 - (IBAction)goBack:(id)sender;
+- (void)reloadTable;
 
 @end

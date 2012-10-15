@@ -22,6 +22,7 @@
 }
 
 - (void) startWithURL:(NSString*) urlStr;
+- (void) dataSending:(NSString*)data;
 - (void) sendMsg:(NSString*)msg to:(NSString*)target;
 - (void) setHandle:(NSString*)name;
 - (NSString*) handle;

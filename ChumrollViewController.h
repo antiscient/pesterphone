@@ -24,6 +24,7 @@
 -(void)setHandle:(NSString*)handle;
 -(Boolean)addChum:(NSString*)theChum;
 -(void)startChat;
+-(void)startChatPush;
 -(void)reloadTable;
 
 @end

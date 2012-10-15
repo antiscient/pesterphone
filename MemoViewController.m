@@ -10,6 +10,7 @@
 #import "PesterphoneAppDelegate.h"
 
 @implementation MemoViewController
+@synthesize memoTable;
 
 - (IBAction)goBack:(id)sender
 {
@@ -26,16 +27,20 @@
     //
     // Open new chat here...
     //
+    NSString *chatName = [@"#" stringByAppendingString:selectedMemo];
     
     Chat *newChat;
     
-    if( [appDelegate.chatList valueForKey:selectedMemo] )
-        newChat = [appDelegate.chatList valueForKey:selectedMemo];
+    if( [appDelegate.chatList valueForKey:chatName] )
+        newChat = [appDelegate.chatList valueForKey:chatName];
     else
-        newChat = [[Chat alloc] initWithName:selectedMemo];
+    {
+        newChat = [[Chat alloc] initWithName:chatName];
+        newChat.isMemo = true;
+    }
     
     appDelegate.activeChat = newChat;
-    [appDelegate.chatList setValue:newChat forKey:selectedMemo];
+    [appDelegate.chatList setValue:newChat forKey:chatName];
     
     [(id)[(UINavigationController*)[self presentingViewController] topViewController] startChat];
 }
@@ -44,7 +49,8 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+    return [appDelegate.memoList count];
 }
 
 // Customize the appearance of table view cells.
@@ -61,8 +67,12 @@
     }
     
     // Configure the cell.
-    //cell.textLabel.text = [self.chums objectAtIndex: [indexPath row]];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
+    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    cell.textLabel.text = [appDelegate.memoList objectAtIndex: [indexPath row]];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     return cell;
 }
 
@@ -71,10 +81,22 @@
     selectedMemo = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
 }
 
+- (void)reloadTable
+{
+    [memoTable reloadData];
+}
+
 - (void)viewDidLoad
 {
     selectedMemo = @"";
+    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
+    appDelegate.memoView = self;
+    [appDelegate.connection dataSending:@"LIST\n"];
 }
 
 
+- (void)viewDidUnload {
+    [self setMemoTable:nil];
+    [super viewDidUnload];
+}
 @end

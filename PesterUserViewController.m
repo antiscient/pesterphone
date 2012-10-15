@@ -21,6 +21,13 @@
         return;
     }
     
+    if( [[IRCConnection getInitials:textEntry.text] length] != 2 || [textEntry.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != -1 )
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not a Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter and no spaces,\nlikeThis" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     //
@@ -53,6 +60,13 @@
     if( [textEntry.text length] < 2 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Chumhandle Too Short" message:@"Try adding a real chumhandle." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    if( [[IRCConnection getInitials:textEntry.text] length] != 2 || [textEntry.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != -1 )
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not a Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter and no spaces,\nlikeThis" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -250,6 +250,14 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView contentMode="scaleToFill" id="l04-Ly-tYx">
+                                <rect key="frame" x="8" y="0.0" width="304" height="208"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="yVH-g3-FtV" kind="embed" id="P4D-af-VXd"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -260,6 +268,7 @@
                         <outlet property="chatBarField" destination="vMi-BO-yiT" id="4wh-Ik-3TF"/>
                         <outlet property="chatBorderLabel" destination="ZQT-4l-4Jl" id="xFE-hb-QKU"/>
                         <outlet property="chatTextView" destination="EVw-KU-JRG" id="5wQ-ZO-k7T"/>
+                        <outlet property="menuContainer" destination="l04-Ly-tYx" id="PzR-tW-HRh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="leg-dP-9Gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -342,6 +351,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1530213648" green="0.1530213648" blue="0.1530213648" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="memoTable" destination="H3O-nK-rSi" id="8qC-SE-dey"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h0b-Ko-COv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -564,8 +576,55 @@
             </objects>
             <point key="canvasLocation" x="1762" y="933"/>
         </scene>
+        <!--Chat Menu View Controller-->
+        <scene sceneID="hNV-N7-aPX">
+            <objects>
+                <viewController id="yVH-g3-FtV" customClass="ChatMenuViewController" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="39l-Ij-2mW">
+                        <rect key="frame" x="0.0" y="0.0" width="304" height="208"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gyL-oy-HdN">
+                                <rect key="frame" x="3" y="-6" width="298" height="211"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92643893489999996" green="0.70190652239999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4MK-CI-RvZ">
+                                <rect key="frame" x="13" y="7" width="279" height="139"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98531170280000002" green="0.88944657329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="chumTable" destination="4MK-CI-RvZ" id="0Vr-Qo-meV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ciF-UK-QrB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2139" y="442"/>
+        </scene>
     </scenes>
     <classes>
+        <class className="ChatMenuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChatMenuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addChum:"/>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="pester:"/>
+                <relationship kind="outlet" name="chumTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
         <class className="ChatViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ChatViewController.h"/>
             <relationships>
@@ -576,6 +635,7 @@
                 <relationship kind="outlet" name="chatBarField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="chatBorderLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="chatTextView" candidateClass="UIWebView"/>
+                <relationship kind="outlet" name="menuContainer" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="ChumrollViewController" superclassName="UIViewController">
@@ -600,6 +660,7 @@
             <relationships>
                 <relationship kind="action" name="goBack:"/>
                 <relationship kind="action" name="joinMemo:"/>
+                <relationship kind="outlet" name="memoTable" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="PesterUserViewController" superclassName="UIViewController">

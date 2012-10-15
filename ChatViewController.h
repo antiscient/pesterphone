@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "IRCConnection.h"
 #import "Chat.h"
+#import "ChatMenuViewController.h"
 
 @interface ChatViewController : UIViewController <UIWebViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *menuContainer;
 @property (weak, nonatomic) IBOutlet UITextField *chatBarField;
 @property (weak, nonatomic) IBOutlet UIWebView *chatTextView;
 @property (weak, nonatomic) IBOutlet UILabel *borderLabel;
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backgroundLabel;
 @property (strong, nonatomic) IRCConnection *connection;
 @property (strong, nonatomic) Chat *chat;
+@property (weak, nonatomic) ChatMenuViewController *menuController;
 
 - (IBAction)dismissKeyboard:(id)sender;
 - (IBAction)sendMsg:(id)sender;

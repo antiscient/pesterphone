@@ -12,6 +12,7 @@
 		EB5D5D33160EA9F300BCCC6F /* PesterlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D5D32160EA9F300BCCC6F /* PesterlistViewController.m */; };
 		EB85FBF71623127E00612A5D /* MemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB85FBF61623127E00612A5D /* MemoViewController.m */; };
 		EB85FBFB1623366A00612A5D /* PesterUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB85FBFA1623366A00612A5D /* PesterUserViewController.m */; };
+		F34BFB3A162B99C3007FD144 /* ChatMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F34BFB39162B99C3007FD144 /* ChatMenuViewController.m */; };
 		F39AAD3B160D2129009170B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3A160D2129009170B2 /* UIKit.framework */; };
 		F39AAD3D160D2129009170B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3C160D2129009170B2 /* Foundation.framework */; };
 		F39AAD3F160D2129009170B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39AAD3E160D2129009170B2 /* CoreGraphics.framework */; };
@@ -35,6 +36,8 @@
 		EB85FBF61623127E00612A5D /* MemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoViewController.m; sourceTree = SOURCE_ROOT; };
 		EB85FBF91623366A00612A5D /* PesterUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PesterUserViewController.h; sourceTree = SOURCE_ROOT; };
 		EB85FBFA1623366A00612A5D /* PesterUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PesterUserViewController.m; sourceTree = SOURCE_ROOT; };
+		F34BFB38162B99C3007FD144 /* ChatMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMenuViewController.h; sourceTree = SOURCE_ROOT; };
+		F34BFB39162B99C3007FD144 /* ChatMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMenuViewController.m; sourceTree = SOURCE_ROOT; };
 		F39AAD36160D2128009170B2 /* Pesterchum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pesterchum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39AAD3A160D2129009170B2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F39AAD3C160D2129009170B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,6 +112,8 @@
 				F39AAD5D160D2165009170B2 /* LoginViewController.m */,
 				F39AAD5E160D2165009170B2 /* ChatViewController.h */,
 				F39AAD5F160D2165009170B2 /* ChatViewController.m */,
+				F34BFB38162B99C3007FD144 /* ChatMenuViewController.h */,
+				F34BFB39162B99C3007FD144 /* ChatMenuViewController.m */,
 				EB5D5D28160EA54500BCCC6F /* ChumrollViewController.h */,
 				EB5D5D29160EA54500BCCC6F /* ChumrollViewController.m */,
 				EB5D5D31160EA9F300BCCC6F /* PesterlistViewController.h */,
@@ -207,6 +212,7 @@
 				EB2DA10F1621E46F0063FA0D /* Chat.m in Sources */,
 				EB85FBF71623127E00612A5D /* MemoViewController.m in Sources */,
 				EB85FBFB1623366A00612A5D /* PesterUserViewController.m in Sources */,
+				F34BFB3A162B99C3007FD144 /* ChatMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
