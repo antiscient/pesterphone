@@ -21,7 +21,7 @@
         return;
     }
     
-    if( [[IRCConnection getInitials:textEntry.text] length] != 2 || [textEntry.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != -1 )
+    if( [[IRCConnection getInitials:textEntry.text] length] != 2 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not a Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter and no spaces,\nlikeThis" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -47,7 +47,10 @@
     }
     
     if( !newChat )
+    {
         newChat = [[Chat alloc] initWithName:chum];
+        [newChat addChum:chum withMood:0];
+    }
     
     appDelegate.activeChat = newChat;
     [appDelegate.chatList setValue:newChat forKey:chum];
@@ -64,7 +67,7 @@
         return;
     }
     
-    if( [[IRCConnection getInitials:textEntry.text] length] != 2 || [textEntry.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != -1 )
+    if( [[IRCConnection getInitials:textEntry.text] length] != 2 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not a Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter and no spaces,\nlikeThis" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];

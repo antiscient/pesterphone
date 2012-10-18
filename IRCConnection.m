@@ -75,7 +75,9 @@
                     if (len > 0)
                     {
                         NSMutableString *output = [[NSMutableString alloc] initWithBytes:buffer length:len encoding:NSUTF8StringEncoding];
+#ifdef DEBUG
                         NSLog(@"-------- ---- ------------------- %@", output);
+#endif
                         
                         
                         if( !loggedIn )
@@ -223,6 +225,7 @@
                                                         display = [NSString stringWithFormat:@"<c=100,100,100>-- %@ <c=%@>[%@]</c> ceased pestering %@ <c=%@>[%@]</c> at %@ --</c>", chumhandle, theChat.chatColor, [IRCConnection getInitials:chumhandle],
                                                                    myHandle, appDelegate.myColor, myInitials, currentTime ];
                                                         theChat.isOpen = false;
+                                                        [theChat removeChum:chumhandle];
                                                     }
                                                     if( [message hasPrefix:@":PESTERCHUM:BEGIN"] )
                                                     {
@@ -283,6 +286,23 @@
                                         if( [ircCommand isEqualToString: @"QUIT"] || [ircCommand isEqualToString:@"NICK"] )
                                         {
                                             //display = [NSString stringWithFormat:@"%@ has logged off!", chumhandle];
+                                            
+                                            // get current date/time
+                                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                            // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+                                            [dateFormatter setDateFormat:@"H:mm"];
+                                            NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
+                                            
+                                            for( NSString *key in [appDelegate.chatList allKeys] )
+                                            {
+                                                Chat *currentChat = (Chat *)[appDelegate.chatList valueForKey:key];
+                                                [currentChat removeChum:chumhandle];
+                                                if( currentChat.isMemo )
+                                                    [currentChat printToChat:[NSString stringWithFormat:@"<c=100,100,100>-- %@ [%@] ceased responding to memo at %@ --</c>", chumhandle, [IRCConnection getInitials:chumhandle], currentTime]];
+                                                else
+                                                    [currentChat printToChat:[NSString stringWithFormat:@"<c=100,100,100>-- %@ <c=%@>[%@]</c> set their mood to OFFLINE --</c>", chumhandle, currentChat.chatColor,
+                                                                              [IRCConnection getInitials:chumhandle]]];
+                                            }
                                             
                                             int chumIndex = [appDelegate.chumroll.chums indexOfObject:chumhandle];
                                             
@@ -420,7 +440,10 @@
         
         out = [NSString stringWithFormat:@"PRIVMSG %@ :%@\n",target, out];
         [self dataSending:out];
+        
+#ifdef DEBUG
         NSLog(@"Sending-----------\"%@\"", out);
+#endif
     }
 }
 

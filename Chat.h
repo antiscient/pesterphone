@@ -14,13 +14,17 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSMutableString *HTMLlog;
 @property (strong, nonatomic) NSMutableDictionary *chatMoodList;
+@property (strong, nonatomic) NSMutableDictionary *chatTimeList;
 @property (strong, nonatomic) NSString *chatColor;
 @property Boolean isOpen;
 @property Boolean isMemo;
 @property (weak, nonatomic) ChatViewController *controller;
 
 - (id)initWithName:(NSString*)newName;
-- (void)addChum:(NSString*)chum withMood:(NSString*)mood;
+- (void)addChum:(NSString*)chum withMood:(int)mood;
+- (void)removeChum:(NSString*)chum;
+- (void)setMood:(int)mood forChum:(NSString*)chum;
+- (void)setTime:(int)time forChum:(NSString*)chum;
 - (void)printToChat:(NSString *)msg;
 
 @end

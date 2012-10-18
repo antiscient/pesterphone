@@ -13,8 +13,8 @@
 #import "ChumrollViewController.h"
 
 @interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *username;
-@property (weak, nonatomic) IBOutlet UITextField *password;
+@property (nonatomic) IBOutlet UITextField *username;
+@property (nonatomic) IBOutlet UITextField *password;
 
 @end
 

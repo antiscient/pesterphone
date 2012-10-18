@@ -30,6 +30,26 @@
     [chatBarField resignFirstResponder];
 }
 
+- (IBAction)hideMenu:(id)sender
+{
+    [self hideMenu];
+}
+
+- (void) hideMenu
+{
+    CGRect frame = menuContainer.frame;
+    
+    if( !(frame.origin.y < 0) )
+    {
+        frame.origin.y -= frame.size.height + 50;
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration: 0.4f ];
+        [menuContainer setFrame:frame];
+        [UIView commitAnimations];
+    }
+}
+
 - (IBAction)sendMsg:(id)sender
 {
     if( chatBarField.text.length > 0 )
@@ -40,15 +60,10 @@
     [self dismissKeyboard:sender];
 }
 
--(BOOL) textViewShouldBeginEditing:(UITextView *)textView
-{
-    [self dismissKeyboard:self];
-    return NO;
-}
-
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
+    [self hideMenu];
     // NSLog(@"Typing has begun!");
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -135,10 +150,25 @@
     [chatTextView stringByEvaluatingJavaScriptFromString:javascript];
 }
 
-- (void) navBarTap
+- (void) toggleMenu
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"You tapped the bar!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"You tapped the chat view's bar!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    // [alert show];
+    
+    CGRect frame = menuContainer.frame;
+    
+    if( frame.origin.y < 0 )
+    {
+        frame.origin.y += frame.size.height + 50;
+        [menuController reloadTable];
+    }
+    else
+        frame.origin.y -= frame.size.height + 50;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration: 0.4f ];
+    [menuContainer setFrame:frame];
+    [UIView commitAnimations];
 }
 
 - (void)viewDidLoad
@@ -209,10 +239,10 @@
     
     self.navigationItem.title = chat.name;
     
-    /*UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTap)];
-    tap.numberOfTapsRequired = 1;*/
+    CGRect frame = menuContainer.frame;
+    frame.origin.y -= frame.size.height + 50;
     
-    [[self.navigationController.navigationBar.subviews objectAtIndex:1] setUserInteractionEnabled:YES];
+    [menuContainer setFrame:frame];
 }
 
 - (void)registerForKeyboardNotifications
@@ -225,6 +255,31 @@
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMenu)];
+    tap.numberOfTapsRequired = 1;
+    
+    CGRect frame = CGRectMake(self.view.frame.size.width/4, 0, self.view.frame.size.width/1.75f, 44);
+    UIView *navBarTapView = [[UIView alloc] initWithFrame:frame];
+    
+    [self.navigationController.navigationBar addSubview:navBarTapView];
+    
+    navBarTapView.backgroundColor = [UIColor clearColor];
+    
+    [navBarTapView setUserInteractionEnabled:YES];
+    [navBarTapView addGestureRecognizer:tap];
+    navTapView = navBarTapView;
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [navTapView removeFromSuperview];
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload

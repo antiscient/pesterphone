@@ -12,6 +12,9 @@
 #import "ChatMenuViewController.h"
 
 @interface ChatViewController : UIViewController <UIWebViewDelegate>
+{
+    UIView *navTapView;
+}
 @property (weak, nonatomic) IBOutlet UIView *menuContainer;
 @property (weak, nonatomic) IBOutlet UITextField *chatBarField;
 @property (weak, nonatomic) IBOutlet UIWebView *chatTextView;
@@ -23,6 +26,7 @@
 @property (weak, nonatomic) ChatMenuViewController *menuController;
 
 - (IBAction)dismissKeyboard:(id)sender;
+- (IBAction)hideMenu:(id)sender;
 - (IBAction)sendMsg:(id)sender;
 - (void)setConnection:(IRCConnection *)connection;
 

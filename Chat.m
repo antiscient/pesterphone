@@ -10,7 +10,7 @@
 #import "ChatViewController.h"
 
 @implementation Chat
-@synthesize name, HTMLlog, chatMoodList, chatColor, isOpen, isMemo, controller;
+@synthesize name, HTMLlog, chatMoodList, chatTimeList, chatColor, isOpen, isMemo, controller;
 
 -(id) initWithName:(NSString*) newName
 {
@@ -25,9 +25,26 @@
     return self;
 }
 
--(void) addChum:(NSString *)chum withMood:(NSString *)mood
+-(void) addChum:(NSString *)chum withMood:(int)mood
 {
-    [chatMoodList setValue:mood forKey:chum];
+    [self setMood:mood forChum:chum];
+    [self setTime:0 forChum:chum];
+}
+
+- (void) removeChum:(NSString *)chum
+{
+    [chatMoodList removeObjectForKey:chum];
+    [chatTimeList removeObjectForKey:chum];
+}
+
+- (void) setMood:(int)mood forChum:(NSString *)chum
+{
+    [chatMoodList setValue:[NSNumber numberWithInt:mood] forKey:chum];
+}
+
+- (void) setTime:(int)time forChum:(NSString *)chum
+{
+    [chatTimeList setValue:[NSNumber numberWithInt:time] forKey:chum];
 }
 
 - (void) printToChat:(NSString*)msg

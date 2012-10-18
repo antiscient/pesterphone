@@ -83,7 +83,7 @@
 
 - (void) startChatPush
 {
-    [[self navigationController] popToRootViewControllerAnimated:YES];
+    [[self navigationController] popToRootViewControllerAnimated:NO];
     [self performSegueWithIdentifier: @"pushChatView" sender: self];
 }
 
@@ -139,7 +139,10 @@
         if( [appDelegate.chatList valueForKey:chum] )
             newChat = [appDelegate.chatList valueForKey:chum];
         else
+        {
             newChat = [[Chat alloc] initWithName:chum];
+            [newChat addChum:chum withMood:0];
+        }
         
         appDelegate.activeChat = newChat;
         [appDelegate.chatList setValue:newChat forKey:chum];

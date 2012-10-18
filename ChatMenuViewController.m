@@ -9,9 +9,10 @@
 #import "ChatMenuViewController.h"
 #import "ChatViewController.h"
 #import "PesterphoneAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation ChatMenuViewController
-@synthesize chumTable;
+@synthesize chumTable, parent;
 
 - (IBAction)goBack:(id)sender
 {
@@ -22,6 +23,11 @@
 {
     if( [selectedChum length] < 1 )
     {
+        return;
+    }
+    if( [selectedChum isEqualToString:parent.chat.name] )
+    {
+        [parent hideMenu:self];
         return;
     }
     
@@ -49,7 +55,7 @@
     appDelegate.activeChat = newChat;
     [appDelegate.chatList setValue:newChat forKey:chum];
     
-    [(id)[[self.parent navigationController] topViewController] startChatPush];
+    [[(id)[[parent navigationController] viewControllers] objectAtIndex:0] startChatPush];
 }
 
 - (IBAction)addChum:(id)sender
@@ -92,8 +98,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
-    return [appDelegate.memoList count];
+    return [parent.chat.chatMoodList count];
 }
 
 // Customize the appearance of table view cells.
@@ -110,10 +115,8 @@
     }
     
     // Configure the cell.
-    PesterphoneAppDelegate *appDelegate = (PesterphoneAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    cell.textLabel.text = [appDelegate.memoList objectAtIndex: [indexPath row]];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.text = [[parent.chat.chatMoodList allKeys] objectAtIndex:[indexPath row]];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     return cell;
@@ -132,10 +135,15 @@
 - (void)viewDidLoad
 {
     selectedChum = @"";
+    self.view.layer.masksToBounds = NO;
+    self.view.layer.shadowOffset = CGSizeMake(0,3);
+    self.view.layer.shadowRadius = 10;
+    self.view.layer.shadowOpacity = 0.5;
 }
 
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setChumTable:nil];
     [super viewDidUnload];
 }

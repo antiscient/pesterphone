@@ -37,6 +37,7 @@
     {
         newChat = [[Chat alloc] initWithName:chatName];
         newChat.isMemo = true;
+        [newChat addChum:appDelegate.connection.handle withMood:0];        //          Should be own current mood!
     }
     
     appDelegate.activeChat = newChat;
