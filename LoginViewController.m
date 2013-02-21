@@ -55,7 +55,7 @@
         return;
     }
     
-    if( [[IRCConnection getInitials:chumhandleText.text] length] != 2 )
+    if( [[IRCConnection getInitials:chumhandleText.text withTime:nil] length] != 2 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incompatible Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];

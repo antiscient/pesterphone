@@ -23,8 +23,9 @@
 - (id)initWithName:(NSString*)newName;
 - (void)addChum:(NSString*)chum withMood:(int)mood;
 - (void)removeChum:(NSString*)chum;
+- (Boolean)hasChum:(NSString*)chum;
 - (void)setMood:(int)mood forChum:(NSString*)chum;
-- (void)setTime:(int)time forChum:(NSString*)chum;
-- (void)printToChat:(NSString *)msg;
+- (void)setTime:(NSString*)chumTime forChum:(NSString*)chum;
+- (void)printToChat:(NSString *)msg fromChum:(NSString*)sender;
 
 @end

@@ -28,6 +28,6 @@
 - (NSString*) handle;
 - (NSString*) initials;
 
-+ (NSString*) getInitials:(NSString*)name;
++ (NSString*) getInitials:(NSString*)name withTime:(NSNumber*)time;
 
 @end

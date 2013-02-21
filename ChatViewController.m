@@ -214,12 +214,14 @@
             [connection sendMsg:@"PESTERCHUM:TIME>i" to:chat.name];
             verb = @"opened memo on board";
             chatName = [[[chatName substringFromIndex:1] stringByReplacingOccurrencesOfString:@"_" withString:@" "] uppercaseString];
+            [chat.chatMoodList setValue:@"0" forKey:[appDelegate.connection handle]];
         }
         else
         {
             [connection sendMsg:@"PESTERCHUM:BEGIN" to:chat.name];
             [connection sendMsg:[NSString stringWithFormat:@"COLOR >%@", appDelegate.myColor] to:chat.name];
-            chatInitials = [NSString stringWithFormat:@" [%@]", [IRCConnection getInitials:chat.name]];
+            chatInitials = [NSString stringWithFormat:@" [%@]", [IRCConnection getInitials:chat.name withTime:nil]];
+            [chat.chatMoodList setValue:@"0" forKey:chat.name];
         }
         
         chat.isOpen = true;

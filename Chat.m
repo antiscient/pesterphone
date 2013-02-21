@@ -16,10 +16,11 @@
 {
     self = [super init];
     chatMoodList = [NSMutableDictionary dictionary];
+    chatTimeList = [NSMutableDictionary dictionary];
     name = newName;
     HTMLlog = [@"<html><head></head> <body style=\"font-family:'Monaco', Monaco, monospace; font-weight:900; font-size:15px; line-height:95%\"></body></html>" mutableCopy];
     chatColor = @"0,0,0";
-    [chatMoodList setValue:@"0" forKey:name];
+    
     isOpen = false;
     isMemo = false;
     return self;
@@ -28,7 +29,7 @@
 -(void) addChum:(NSString *)chum withMood:(int)mood
 {
     [self setMood:mood forChum:chum];
-    [self setTime:0 forChum:chum];
+    [self setTime:@"0000" forChum:chum];
 }
 
 - (void) removeChum:(NSString *)chum
@@ -37,18 +38,24 @@
     [chatTimeList removeObjectForKey:chum];
 }
 
+- (Boolean) hasChum:(NSString *)chum
+{
+    return ([chatMoodList valueForKey:chum] != nil || [chatTimeList valueForKey:chum] != nil);
+}
+
 - (void) setMood:(int)mood forChum:(NSString *)chum
 {
     [chatMoodList setValue:[NSNumber numberWithInt:mood] forKey:chum];
 }
 
-- (void) setTime:(int)time forChum:(NSString *)chum
+- (void) setTime:(NSString*)chumTime forChum:(NSString *)chum
 {
-    [chatTimeList setValue:[NSNumber numberWithInt:time] forKey:chum];
+    [chatTimeList setValue:chumTime forKey:chum];
 }
 
-- (void) printToChat:(NSString*)msg
+- (void) printToChat:(NSString*)msg fromChum:(NSString*)sender
 {
+    msg = [msg stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
     msg = [msg stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     msg = [msg stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     msg = [msg stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
@@ -67,6 +74,16 @@
     msg = [msg stringByReplacingOccurrencesOfString:@"9>" withString:@"9)\\\">"];
     
     msg = [msg stringByReplacingOccurrencesOfString:@"</c>" withString:@"</span>"];
+    
+    if( isMemo && sender && [sender length] > 1 && [self hasChum:sender] )
+    {
+        NSNumber *outTime = [NSNumber numberWithInt:[(NSString*)[chatTimeList valueForKey:sender] intValue]];
+        NSLog( @"\n\n\n\nPrinting with time: %@(%@) and Sender: %@\n\n\n\n", outTime, [chatTimeList valueForKey:sender], sender );
+        
+        NSRange initials = [msg rangeOfString:[NSString stringWithFormat:@"%@: ", [IRCConnection getInitials:sender withTime:nil]]];
+        if( initials.location != NSNotFound )
+            msg = [msg stringByReplacingCharactersInRange:initials withString:[NSString stringWithFormat:@"%@: ", [IRCConnection getInitials:sender withTime:outTime]]];
+    }
     
     NSLog( @"\n\n\n\n$$$$$    Message = %@    $$$$$\n\n\n\n", msg );
     

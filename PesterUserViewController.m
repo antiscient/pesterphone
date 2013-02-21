@@ -21,7 +21,7 @@
         return;
     }
     
-    if( [[IRCConnection getInitials:textEntry.text] length] != 2 )
+    if( [[IRCConnection getInitials:textEntry.text withTime:nil] length] != 2 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not a Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter and no spaces,\nlikeThis" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -67,7 +67,7 @@
         return;
     }
     
-    if( [[IRCConnection getInitials:textEntry.text] length] != 2 )
+    if( [[IRCConnection getInitials:textEntry.text withTime:nil] length] != 2 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not a Chumhandle" message:@"Make sure you use a real chumhandle, with exactly one capital letter and no spaces,\nlikeThis" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
